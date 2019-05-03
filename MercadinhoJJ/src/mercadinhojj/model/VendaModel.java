@@ -2,8 +2,6 @@ package mercadinhojj.model;
 
 import java.util.Date;
 
-
-
 public class VendaModel {
     private ProdutoModel[] produtos;
     private double valorTotal;

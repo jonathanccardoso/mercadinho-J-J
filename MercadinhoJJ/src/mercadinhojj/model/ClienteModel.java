@@ -1,7 +1,5 @@
 package mercadinhojj.model;
 
-
-
 public class ClienteModel {
     private String nome;
     private String endereco;

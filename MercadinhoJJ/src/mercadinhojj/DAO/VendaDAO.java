@@ -9,9 +9,7 @@ package mercadinhojj.DAO;
  *
  * @author kadu
  */
-public class ClienteDAO {
-
-    // falta entidade associativa (venda-produto)
+public class VendaDAO {
 
     public Connection connection;
     public Statement stm;
@@ -38,15 +36,15 @@ public class ClienteDAO {
         connection.close();
     }
 
-    public boolean setClient(ClienteModel c, MercadoModel m) {
+    public boolean setClient(VendaModel v, ClienteModel m) {
         try {
-            PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Cliente (id_cliente, nome, divida, historico, fk_Mercado_id_mercado) "
-                            + "VALUES (default,?,?,?)");
-            pst.setString(1, c.getNome());
-            pst.setString(2, c.getDivida());
-            pst.setString(3, c.getHistorico());
-            pst.setInt(4, m.getId());
+            PreparedStatement pst = connection
+                    .prepareStatement("INSERT INTO Venda (id_venda, valorTotal, data, fiado fk_Mercado_id_mercado) "
+                            + "VALUES (default,?,?,?,?)");
+            pst.setString(1, v.getValorTotal());
+            pst.setString(2, v.getData());
+            pst.setString(3, v.getFiado());
+            pst.setInt(5, m.getId());
             pst.execute();
             return true;
         } catch (SQLException ex) {
