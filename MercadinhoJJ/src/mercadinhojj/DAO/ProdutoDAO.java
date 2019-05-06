@@ -16,9 +16,10 @@ public class ProdutoDAO {
     public ResultSet resultSet;
 
     private String driver = "org.postgresql.Driver";
-    private String usuario = ""; // postgres
-    private String senha = ""; // postgres
-    private String url = ""; // [localhost] jdbc:postgresql://localhost:5433
+    private String usuario = "wawmbiizuephkm"; // postgres
+    private String senha = "97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be"; // postgres
+    private String url = "jdbc:postgres://wawmbiizuephkm:97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be@ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
+    // [localhost] jdbc:postgresql://localhost:5433
 
     public Connection() {
 
