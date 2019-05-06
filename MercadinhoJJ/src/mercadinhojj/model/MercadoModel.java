@@ -1,8 +1,5 @@
 package mercadinhojj.model;
 
-
-
-
 public class MercadoModel {
     private String nome;
     private String proprietario;
