@@ -1,9 +1,10 @@
 package mercadinhojj.model;
 
 import java.util.Date;
+import java.util.*;
 
 public class VendaModel {
-    private ProdutoModel[] produtos;
+    private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
     private Date data;
     private boolean fiado;
@@ -14,19 +15,17 @@ public class VendaModel {
 
     public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean fiado) {
         super();
-        this.produtos = produtos;
+        this.produtos = new ArrayList();
         this.valorTotal = valorTotal;
         this.data = data;
         this.fiado = fiado;
     }
 
-    public ProdutoModel[] getProdutos() {
+    public ArrayList<ProdutoModel> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(ProdutoModel[] produtos) {
-        this.produtos = produtos;
-    }
+    
 
     public double getValorTotal() {
         return valorTotal;
@@ -51,4 +50,20 @@ public class VendaModel {
     public void setFiado(boolean fiado) {
         this.fiado = fiado;
     }
+    
+    public void adicionarProduto(ProdutoModel p){
+        this.produtos.add(p);
+    }
+    public void removerProduto(ProdutoModel p){
+        this.produtos.remove(p);
+    } 
+            
+    public void esvaziar(){
+        this.produtos=new ArrayList();
+    }
+    
+    public ArrayList<ProdutoModel> listarProdutos(){
+           return this.getProdutos();
+    }
+    
 }
