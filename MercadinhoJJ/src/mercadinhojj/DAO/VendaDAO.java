@@ -37,15 +37,15 @@ public class VendaDAO {
         connection.close();
     }
 
-    public boolean setClient(VendaModel v, ClienteModel m) {
+    public boolean setClient(VendaModel v, ClienteModel c) {
         try {
             PreparedStatement pst = connection
-                    .prepareStatement("INSERT INTO Venda (id_venda, valorTotal, data, fiado fk_Mercado_id_mercado) "
+                    .prepareStatement("INSERT INTO Venda (id_venda, valorTotal, data, fiado, fk_Cliente_id_cliente) "
                             + "VALUES (default,?,?,?,?)");
             pst.setString(1, v.getValorTotal());
             pst.setString(2, v.getData());
             pst.setString(3, v.getFiado());
-            pst.setInt(5, m.getId());
+            pst.setInt(5, c.getId());
             pst.execute();
             return true;
         } catch (SQLException ex) {
