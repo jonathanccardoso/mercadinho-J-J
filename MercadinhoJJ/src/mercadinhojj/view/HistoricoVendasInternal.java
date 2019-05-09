@@ -28,13 +28,13 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelavendas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelavendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -45,7 +45,7 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
                 "Cliente","Data","Valor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelavendas);
 
         jLabel1.setText("Historico de Vendas");
 
@@ -88,6 +88,6 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelavendas;
     // End of variables declaration//GEN-END:variables
 }

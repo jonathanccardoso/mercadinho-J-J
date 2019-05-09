@@ -5,6 +5,8 @@
  */
 package mercadinhojj.view;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kadu
@@ -38,9 +40,9 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         slotetxt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        cadastrarprod = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        deletarprod = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -64,11 +66,21 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Slote");
 
-        jButton1.setText("Cadastrar");
+        cadastrarprod.setText("Cadastrar");
+        cadastrarprod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarprodActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salvar");
 
-        jButton3.setText("Deletar");
+        deletarprod.setText("Deletar");
+        deletarprod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletarprodActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,7 +104,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
                                     .addGap(2, 2, 2)
                                     .addComponent(nometxt, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cadastrarprod, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +119,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
                                     .addComponent(slotetxt)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(deletarprod, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 52, Short.MAX_VALUE)
@@ -138,9 +150,9 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
                             .addComponent(slotetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(deletarprod)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(cadastrarprod))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -149,11 +161,26 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
+        Object[] dados={slotetxt.getText(),nometxt.getText(),precotxt.getText(),qtdtxt.getText()};
+        dtmprodutos.addRow(dados);
+        
+    }//GEN-LAST:event_cadastrarprodActionPerformed
+
+    private void deletarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarprodActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
+        
+        dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
+    }//GEN-LAST:event_deletarprodActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cadastrarprod;
+    private javax.swing.JButton deletarprod;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
