@@ -65,7 +65,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lucro com debito"/>
+        <Property name="text" type="java.lang.String" value="Lucro sem debito"/>
       </Properties>
     </Component>
   </SubComponents>

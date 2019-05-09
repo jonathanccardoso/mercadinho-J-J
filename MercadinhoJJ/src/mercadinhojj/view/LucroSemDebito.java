@@ -9,12 +9,12 @@ package mercadinhojj.view;
  *
  * @author kadu
  */
-public class LucroDebitoInternal extends javax.swing.JInternalFrame {
+public class LucroSemDebito extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form LucroDebitoInternal
      */
-    public LucroDebitoInternal() {
+    public LucroSemDebito() {
         initComponents();
     }
 
@@ -43,7 +43,7 @@ public class LucroDebitoInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tabelalucrosmensais);
 
-        jLabel1.setText("Lucro com debito");
+        jLabel1.setText("Lucro sem debito");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
