@@ -3,9 +3,11 @@ package mercadinhojj.model;
 import java.util.ArrayList;
 
 public class ClienteModel {
+    private int id;
     private String nome;
     private String endereco;
     private double divida;
+  
     private ArrayList <VendaModel> historico= new ArrayList();
 
     public ClienteModel() {
@@ -55,4 +57,11 @@ public class ClienteModel {
         this.divida-=valor;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

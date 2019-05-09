@@ -9,7 +9,7 @@ package mercadinhojj.DAO;
  *
  * @author kadu
  */
-public class ProdutoDAO {
+public class ConexaoDAO {
 
     public Connection connection;
     public Statement stm;
@@ -35,21 +35,6 @@ public class ProdutoDAO {
 
     public void disconnect() throws SQLException {
         connection.close();
-    }
-
-    public boolean setClient(ProdutoModel p) {
-        try {
-            PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Produto (id_produto, nome, slote, quantidade, preco) " + "VALUES (default,?,?,?,?)");
-            pst.setString(1, p.getNome());
-            pst.setString(2, p.getSlote());
-            pst.setString(3, p.getQuantidade());
-            pst.setString(4, p.getPreco());
-            pst.execute();
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
     }
 
     public boolean executeSql(String sql) {

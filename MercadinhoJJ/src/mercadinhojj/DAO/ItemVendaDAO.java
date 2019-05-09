@@ -9,7 +9,7 @@ package mercadinhojj.DAO;
  *
  * @author kadu
  */
-public class MercadoDAO {
+public class ItemVendaDAO {
 
     public Connection connection;
     public Statement stm;
@@ -37,13 +37,15 @@ public class MercadoDAO {
         connection.close();
     }
 
-    public boolean setClient(MercadoModel c) {
+    public boolean setClient(ItemVendaDAO i, VendaDAO v, ProdutoDAO p) {
         try {
-            PreparedStatement pst = connection
-                    .prepareStatement("INSERT INTO Mercado (id_mercado, nome, CNPJ) " + "VALUES (default,?,?)");
-            pst.setString(1, c.getNome());
-            pst.setString(2, c.getDivida());
-            pst.setString(3, c.getHistorico());
+            PreparedStatement pst = connection.prepareStatement(
+                    "INSERT INTO Item_Venda (produto, quantidade, fk_Venda_id_venda, fk_Produto_id_produto) "
+                            + "VALUES (?, ?, ?, ?)");
+            pst.setString(1, i.getProduto());
+            pst.setString(2, i.getQuantidade());
+            pst.setInt(3, v.getId());
+            pst.setInt(4, p.getId());
             pst.execute();
             return true;
         } catch (SQLException ex) {
