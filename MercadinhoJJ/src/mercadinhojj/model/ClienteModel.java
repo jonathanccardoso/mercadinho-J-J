@@ -1,9 +1,10 @@
 package mercadinhojj.model;
 
 public class ClienteModel {
+    private int id;
     private String nome;
     private String endereco;
-    private boolean divida;
+    private double divida;
     private VendaModel[] historico;
 
     public ClienteModel() {
@@ -50,4 +51,11 @@ public class ClienteModel {
         this.historico = historico;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

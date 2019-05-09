@@ -3,6 +3,7 @@ package mercadinhojj.model;
 import java.util.Date;
 
 public class VendaModel {
+    private int id;
     private ProdutoModel[] produtos;
     private double valorTotal;
     private Date data;
@@ -50,5 +51,13 @@ public class VendaModel {
 
     public void setFiado(boolean fiado) {
         this.fiado = fiado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

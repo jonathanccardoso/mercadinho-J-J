@@ -1,6 +1,7 @@
 package mercadinhojj.model;
 
 public class MercadoModel {
+    private int id;
     private String nome;
     private String proprietario;
     private int CNPJ;
@@ -58,5 +59,13 @@ public class MercadoModel {
 
     public void setVendas(VendaModel[] vendas) {
         this.vendas = vendas;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
