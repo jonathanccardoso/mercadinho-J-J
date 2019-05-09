@@ -1,22 +1,25 @@
 package mercadinhojj.model;
 
+import java.util.ArrayList;
+
 public class ClienteModel {
     private int id;
     private String nome;
     private String endereco;
     private double divida;
-    private VendaModel[] historico;
+  
+    private ArrayList <VendaModel> historico= new ArrayList();
 
     public ClienteModel() {
         super();
     }
 
-    public ClienteModel(String nome, String endereco, boolean divida, VendaModel[] historico) {
+    public ClienteModel(String nome, String endereco, double divida) {
         super();
         this.nome = nome;
         this.endereco = endereco;
         this.divida = divida;
-        this.historico = historico;
+        
     }
 
     public String getNome() {
@@ -35,20 +38,23 @@ public class ClienteModel {
         this.endereco = endereco;
     }
 
-    public boolean isDivida() {
+    public double getDivida() {
         return divida;
     }
 
-    public void setDivida(boolean divida) {
+    public void setDivida(double divida) {
         this.divida = divida;
     }
 
-    public VendaModel[] getHistorico() {
+    public ArrayList<VendaModel> getHistorico() {
         return historico;
     }
 
-    public void setHistorico(VendaModel[] historico) {
-        this.historico = historico;
+    
+    
+    //
+    public void pagarDivida(double valor){
+        this.divida-=valor;
     }
 
     public int getId() {
