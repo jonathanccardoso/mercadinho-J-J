@@ -3,18 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/ProdutoModel.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/MercadoModel.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/DataInvalida.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/ClienteModel.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/NomeUsuarioInvalido.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/FormularioIncompleto.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/ProdutoModel.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/DebitoMaximoAlcancado.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/ProdutoInvalido.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/PrecoInvalido.java</file>
-            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/DataInvalida.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/VendaModel.java</file>
-            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/model/ClienteModel.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/view/ClienteInternalFrame.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/VendaInvalida.java</file>
-            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/NomeUsuarioInvalido.java</file>
-            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/exceptions/FormularioIncompleto.java</file>
             <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/DAO/ClienteDAO.java</file>
+            <file>file:/home/kadu/NetBeansProjects/mercadinho-J-J-master/MercadinhoJJ/src/mercadinhojj/view/MercadoView.java</file>
         </group>
     </open-files>
 </project-private>
