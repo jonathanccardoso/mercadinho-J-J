@@ -5,6 +5,9 @@
  */
 package mercadinhojj.view;
 
+import java.util.ArrayList;
+import mercadinhojj.model.ClienteModel;
+
 /**
  *
  * @author kadu
@@ -15,6 +18,9 @@ public class MercadoView extends javax.swing.JFrame {
      * Creates new form MercadoView2
      */
     public MercadoView() {
+        clientes=new ArrayList<>();
+        
+     
         initComponents();
     }
 
@@ -211,7 +217,8 @@ public class MercadoView extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public static ArrayList <ClienteModel> clientes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane area;
     private javax.swing.JMenuItem cadastrarCliente;

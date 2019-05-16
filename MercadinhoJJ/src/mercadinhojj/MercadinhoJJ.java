@@ -5,6 +5,9 @@
  */
 package mercadinhojj;
 import javax.swing.JFrame;
+import java.util.*;
+import mercadinhojj.model.*;
+
 
 
 /**
@@ -13,11 +16,8 @@ import javax.swing.JFrame;
  */
 public class MercadinhoJJ {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-      
+        ArrayList <ClienteModel> clientes= new ArrayList();
     }
     
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ClienteModel {
     private String nome;
     private String endereco;
+    private String CPF;
     private double divida;
     private ArrayList <VendaModel> historico= new ArrayList();
 
@@ -12,8 +13,9 @@ public class ClienteModel {
         super();
     }
 
-    public ClienteModel(String nome, String endereco, double divida) {
+    public ClienteModel(String nome,String CPF, String endereco, double divida) {
         super();
+        this.CPF=CPF;
         this.nome = nome;
         this.endereco = endereco;
         this.divida = divida;
@@ -46,6 +48,14 @@ public class ClienteModel {
 
     public ArrayList<VendaModel> getHistorico() {
         return historico;
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
     }
 
     

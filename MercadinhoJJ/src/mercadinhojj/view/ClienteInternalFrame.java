@@ -5,9 +5,12 @@
  */
 package mercadinhojj.view;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import mercadinhojj.model.ClienteModel;
+import static mercadinhojj.view.MercadoView.clientes;
 
 /**
  *
@@ -19,6 +22,7 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
      * Creates new form ClienteInternalFrame
      */
     public ClienteInternalFrame() {
+        ArrayList<ClienteModel>clientes;
         initComponents();
     }
 
@@ -42,6 +46,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         tabelaclientes = new javax.swing.JTable();
         Salvar = new javax.swing.JButton();
         deletar = new javax.swing.JButton();
+        cpftxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        atualizar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -71,14 +78,27 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Clientes");
 
-        tabelaclientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        clientes=MercadoView.clientes;
+        arrayClientes=new Object[clientes.size()][4];
 
-            },
+        for (int i=0;i<clientes.size();i++){
+            arrayClientes[i][0]=clientes.get(i).getNome();
+            arrayClientes[i][1]=clientes.get(i).getCPF();
+            arrayClientes[i][2]=clientes.get(i).getEndereco();
+            arrayClientes[i][3]=clientes.get(i).getDivida();
+
+        }
+        tabelaclientes.setModel(new javax.swing.table.DefaultTableModel(
+            arrayClientes,
             new String [] {
                 "Cliente", "CPF", "Endereço", "Divida"
             }
         ));
+        tabelaclientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaclientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaclientes);
 
         Salvar.setText("Cadastrar");
@@ -95,6 +115,15 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setText("CPF");
+
+        atualizar.setText("Atualizar");
+        atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +134,16 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(269, 269, 269)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
@@ -112,19 +151,16 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(enderecotxt)
-                                .addComponent(nometxt, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dividatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(enderecotxt)
+                                    .addComponent(nometxt, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cpftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dividatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +169,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(nometxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nometxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpftxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enderecotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,9 +184,10 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Salvar)
-                    .addComponent(deletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(atualizar)
+                    .addComponent(Salvar))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,24 +207,86 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        String nome=nometxt.getText();
+        String endereco=enderecotxt.getText();
+        double divida=Double.parseDouble(dividatxt.getText());
+        String cpf= cpftxt.getText();
+        ClienteModel novoCliente= new ClienteModel(nome,cpf,endereco,divida);
+        clientes.add(novoCliente);
+        
+        
+        
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
-        Object[] dados={nometxt.getText(),enderecotxt.getText(),dividatxt.getText()};
+        Object[] dados={nometxt.getText(),cpftxt.getText(),enderecotxt.getText(),dividatxt.getText()};
         dtmprodutos.addRow(dados);
+        
+        //esvaziar os textfields
+        nometxt.setText("");
+        cpftxt.setText("");
+        dividatxt.setText("");
+        enderecotxt.setText("");
+        
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarActionPerformed
         // TODO add your handling code here:
+       
+        int s=tabelaclientes.getSelectedRow();
+        
+
         if(tabelaclientes.getSelectedRow()!=-1){
+            clientes.remove(s);
             DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
             dtmprodutos.removeRow(tabelaclientes.getSelectedRow());
+            
+          
+            
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum cliente para completar a açao!");
         }
     }//GEN-LAST:event_deletarActionPerformed
 
+    private void tabelaclientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaclientesMouseClicked
+        // TODO add your handling code here:
+          //esvaziar os textfields
+        int linha=tabelaclientes.getSelectedRow();
+        nometxt.setText(clientes.get(linha).getNome());
+        cpftxt.setText(clientes.get(linha).getCPF());
+        dividatxt.setText(Double.toString(clientes.get(linha).getDivida()));
+        enderecotxt.setText(clientes.get(linha).getEndereco());
+        
+    }//GEN-LAST:event_tabelaclientesMouseClicked
 
+    private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+        // TODO add your handling code here:
+        
+        // TODO add your handling code here:
+        String nome=nometxt.getText();
+        String endereco=enderecotxt.getText();
+        double divida=Double.parseDouble(dividatxt.getText());
+        String cpf= cpftxt.getText();
+        ClienteModel novoCliente= new ClienteModel(nome,cpf,endereco,divida);
+        int linha=tabelaclientes.getSelectedRow();
+        clientes.remove(tabelaclientes.getSelectedRow());
+        clientes.add(tabelaclientes.getSelectedRow(),novoCliente);
+        
+        
+        System.out.println("");
+ 
+        
+        DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
+        Object[] dados={nometxt.getText(),cpftxt.getText(),enderecotxt.getText(),dividatxt.getText()};
+       
+        
+    }//GEN-LAST:event_atualizarActionPerformed
+    
+    
+    public static ArrayList <ClienteModel> clientes=MercadoView.clientes;
+    public  Object[][] arrayClientes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Salvar;
+    private javax.swing.JButton atualizar;
+    private javax.swing.JTextField cpftxt;
     private javax.swing.JButton deletar;
     private javax.swing.JTextField dividatxt;
     private javax.swing.JTextField enderecotxt;
@@ -193,6 +294,7 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nometxt;
     private javax.swing.JTable tabelaclientes;
