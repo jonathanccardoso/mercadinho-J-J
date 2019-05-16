@@ -49,8 +49,6 @@ public class ClienteModel {
     public ArrayList<VendaModel> getHistorico() {
         return historico;
     }
-
-    
     
     //
     public void pagarDivida(double valor){

@@ -74,4 +74,8 @@ public class VendaModel {
     public void setId(int id) {
         this.id = id;
     }
+
+    public boolean getFiado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

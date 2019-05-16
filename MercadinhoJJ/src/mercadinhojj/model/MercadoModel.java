@@ -118,7 +118,6 @@ public class MercadoModel {
       public ArrayList<VendaModel> verificarHistorico(){
          return this.getVendas();
       }
-     
       
       public void LimparHistorico(){
           this.vendas= new ArrayList();
