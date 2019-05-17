@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.*;
 
 public class VendaModel {
+    private int id;
     private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
     private Date data;
@@ -50,7 +51,7 @@ public class VendaModel {
     public void setFiado(boolean fiado) {
         this.fiado = fiado;
     }
-    
+  
     public void adicionarProduto(ProdutoModel p){
         this.produtos.add(p);
     }
@@ -65,5 +66,16 @@ public class VendaModel {
     public ArrayList<ProdutoModel> listarProdutos(){
            return this.getProdutos();
     }
-    
+  
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean getFiado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

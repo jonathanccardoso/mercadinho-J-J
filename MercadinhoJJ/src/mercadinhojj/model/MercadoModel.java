@@ -2,6 +2,7 @@ package mercadinhojj.model;
 import java.util.*;
 
 public class MercadoModel {
+    private int id;
     private String nome;
     private String proprietario;
     private int CNPJ;
@@ -117,9 +118,16 @@ public class MercadoModel {
       public ArrayList<VendaModel> verificarHistorico(){
          return this.getVendas();
       }
-     
       
       public void LimparHistorico(){
           this.vendas= new ArrayList();
       }
+  
+     public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
