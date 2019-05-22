@@ -5,7 +5,10 @@
  */
 package mercadinhojj.view;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import mercadinhojj.model.ProdutoModel;
 
 /**
  *
@@ -46,14 +49,27 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        ArrayList <ProdutoModel> produtos=MercadoView.produtos;
 
-            },
+        Object produtosMatriz [][]= new Object[produtos.size()][4];
+
+        for(int i=0;i<produtos.size();i++){
+            produtosMatriz[i][0]=produtos.get(i).getSlote();
+            produtosMatriz[i][1]=produtos.get(i).getNome();
+            produtosMatriz[i][2]=produtos.get(i).getPreco();
+            produtosMatriz[i][3]=produtos.get(i).getQuantidade();
+        }
+        tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
+            produtosMatriz,
             new String [] {
                 "Slote", "Produto", "Preço", "Quantidade"
             }
         ));
+        tabelaprodutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaprodutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaprodutos);
 
         jLabel1.setText("Produtos");
@@ -74,6 +90,11 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Salvar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         deletarprod.setText("Deletar");
         deletarprod.addActionListener(new java.awt.event.ActionListener() {
@@ -163,20 +184,63 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
     private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
         // TODO add your handling code here:
+        ProdutoModel p= new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
+        produtos.add(p);
+     
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
         Object[] dados={slotetxt.getText(),nometxt.getText(),precotxt.getText(),qtdtxt.getText()};
         dtmprodutos.addRow(dados);
+        slotetxt.setText(" ");
+        nometxt.setText(" ");
+        precotxt.setText(" ");
+        qtdtxt.setText(" ");
         
     }//GEN-LAST:event_cadastrarprodActionPerformed
 
     private void deletarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarprodActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
-        
-        dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
+        if(tabelaprodutos.getSelectedRow()!=-1){
+           produtos.remove(tabelaprodutos.getSelectedRow());
+           DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
+           dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
+           
+        }else{
+            JOptionPane.showMessageDialog(null,"Selecione algum produto para realizar a ação");
+        }
+     
     }//GEN-LAST:event_deletarprodActionPerformed
 
+    private void tabelaprodutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaprodutosMouseClicked
+        // TODO add your handling code here:
+        int linha= tabelaprodutos.getSelectedRow();
+        nometxt.setText(produtos.get(linha).getNome());
+        precotxt.setText(Double.toString(produtos.get(linha).getPreco()));
+        qtdtxt.setText(Integer.toString(produtos.get(linha).getQuantidade()));
+        slotetxt.setText(Integer.toString(produtos.get(linha).getSlote()));
+        
+        
+    }//GEN-LAST:event_tabelaprodutosMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String nome=nometxt.getText();
+        int slote=Integer.parseInt(slotetxt.getText());
+        int qtd=Integer.parseInt(qtdtxt.getText());
+        double preco=Double.parseDouble(precotxt.getText());
+       
+        ProdutoModel novoCliente= new ProdutoModel(nome, slote, qtd, preco);
+        int linha=tabelaprodutos.getSelectedRow();
+        produtos.remove(tabelaprodutos.getSelectedRow());
+        produtos.add(tabelaprodutos.getSelectedRow(),novoCliente);
+        
+        
+         tabelaprodutos.setValueAt(slotetxt.getText(), tabelaprodutos.getSelectedRow(),0);
+         tabelaprodutos.setValueAt(nometxt.getText(), tabelaprodutos.getSelectedRow(),1);
+         tabelaprodutos.setValueAt(precotxt.getText(), tabelaprodutos.getSelectedRow(),2);
+         tabelaprodutos.setValueAt(qtdtxt.getText(), tabelaprodutos.getSelectedRow(),3);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private ArrayList <ProdutoModel> produtos= MercadoView.produtos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarprod;
     private javax.swing.JButton deletarprod;

@@ -271,12 +271,10 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         clientes.add(tabelaclientes.getSelectedRow(),novoCliente);
         
         
-        System.out.println("");
- 
-        
-        DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
-        Object[] dados={nometxt.getText(),cpftxt.getText(),enderecotxt.getText(),dividatxt.getText()};
-       
+         tabelaclientes.setValueAt(nometxt.getText(), tabelaclientes.getSelectedRow(),0);
+         tabelaclientes.setValueAt(cpftxt.getText(), tabelaclientes.getSelectedRow(),1);
+         tabelaclientes.setValueAt(enderecotxt.getText(), tabelaclientes.getSelectedRow(),2);
+         tabelaclientes.setValueAt(dividatxt.getText(), tabelaclientes.getSelectedRow(),3);
         
     }//GEN-LAST:event_atualizarActionPerformed
     
