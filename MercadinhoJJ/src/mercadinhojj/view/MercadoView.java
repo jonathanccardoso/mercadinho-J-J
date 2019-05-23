@@ -7,6 +7,7 @@ package mercadinhojj.view;
 
 import java.util.ArrayList;
 import mercadinhojj.model.ClienteModel;
+import mercadinhojj.model.ProdutoModel;
 
 /**
  *
@@ -19,7 +20,9 @@ public class MercadoView extends javax.swing.JFrame {
      */
     public MercadoView() {
         clientes=new ArrayList<>();
-        
+        produtos=new ArrayList<>();
+        ProdutoModel p= new ProdutoModel();
+        produtos.add(p);
      
         initComponents();
     }
@@ -219,6 +222,8 @@ public class MercadoView extends javax.swing.JFrame {
     }
     
     public static ArrayList <ClienteModel> clientes;
+    public static ArrayList <ProdutoModel> produtos;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane area;
     private javax.swing.JMenuItem cadastrarCliente;

@@ -5,6 +5,12 @@
  */
 package mercadinhojj.view;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import mercadinhojj.model.ClienteModel;
+import mercadinhojj.model.ProdutoModel;
+
 /**
  *
  * @author kadu
@@ -31,11 +37,11 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tabelaprodutos = new javax.swing.JTable();
+        adicionarProduto = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelacompra = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -47,7 +53,15 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        clientesList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ClienteModel clientesArray[]= new ClienteModel[clientes.size()];
+        for (int i =0;i<clientesArray.length;i++){
+            clientesArray[i]=clientes.get(i);
+        }
+        String nomes[]= new String[clientesArray.length];
+        for (int i =0;i<clientesArray.length;i++){
+            nomes[i]=clientesArray[i].getNome();
+        }
+        clientesList.setModel(new javax.swing.DefaultComboBoxModel<>(nomes));
         clientesList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientesListActionPerformed(evt);
@@ -58,21 +72,32 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nova Venda");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        produtosMatriz = new Object[produtos.size()][4];
 
-            },
+        for(int i=0;i<produtos.size();i++){
+            produtosMatriz[i][0]=produtos.get(i).getSlote();
+            produtosMatriz[i][1]=produtos.get(i).getNome();
+            produtosMatriz[i][2]=produtos.get(i).getPreco();
+            produtosMatriz[i][3]=produtos.get(i).getQuantidade();
+        }
+        tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
+            produtosMatriz,
             new String [] {
-                "ID", "Produto", "Preço", "Qtd_disponivel"
+                "slote", "Produto", "Preço", "Qtd_disponivel"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaprodutos);
 
-        jButton1.setText("Adicionar");
+        adicionarProduto.setText("Adicionar");
+        adicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Estoque");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelacompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -80,7 +105,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                 "ID", "Produto", "Preço", "Qtd_disponivel"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabelacompra);
 
         jButton2.setText("remover");
 
@@ -113,7 +138,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jTextField1)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addComponent(adicionarProduto, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(clientesList, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -151,7 +176,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)))
+                                .addComponent(adicionarProduto)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,10 +204,29 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_clientesListActionPerformed
 
+    private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarProdutoActionPerformed
+        // TODO add your handling code here:
+        int i=tabelaprodutos.getSelectedRow();
+        
+        if(i!=-1){
+               DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
+               Object[] dados={produtosMatriz[i][0],produtosMatriz[i][1],produtosMatriz[i][2],produtosMatriz[i][3]};
+               dtmcompras.addRow(dados);
+        }else{
+            JOptionPane.showMessageDialog(null,"Nenhum item selecionado");
+        }
+     
+        
+        
+    }//GEN-LAST:event_adicionarProdutoActionPerformed
 
+    
+    private ArrayList <ClienteModel> clientes=MercadoView.clientes;
+    private ArrayList<ProdutoModel> produtos= MercadoView.produtos;
+    private Object produtosMatriz [][];
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adicionarProduto;
     private javax.swing.JComboBox<String> clientesList;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -194,8 +238,8 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tabelacompra;
+    private javax.swing.JTable tabelaprodutos;
     // End of variables declaration//GEN-END:variables
 }
