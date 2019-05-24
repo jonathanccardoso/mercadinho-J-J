@@ -27,20 +27,17 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
-    private String driver = "org.postgresql.Driver";
+    private String url = "jdbc:postgres://wawmbiizuephkm:97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be@ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
     private String usuario = "wawmbiizuephkm";
     private String senha = "97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be";
-    private String url = "jdbc:postgres://wawmbiizuephkm:97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be@ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
-    // [localhost] jdbc:postgresql://localhost:5433
 
     public ConexaoDAO() {
 
         try {
             System.setProperty("jdbc.Drivers", "org.postgresql.Driver");
             connection = DriverManager.getConnection(url, usuario, senha);
+            System.out.println("COnexão realizada!");
         } catch (SQLException ex) {
-            //Logger.getLogger(CrushManager.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(null, "Falha ao conectar ao DB!");
             System.out.println(ex);
         }
 
@@ -49,10 +46,11 @@ public class ConexaoDAO {
     public void disconnect() throws SQLException {
         connection.close();
     }
-    
-     public boolean setClient(ClienteModel c) {
+
+    public boolean setClient(ClienteModel c) {
         try {
-            PreparedStatement pst = connection.prepareStatement("INSERT INTO Cliente (id_cliente, nome, divida, historico) " + "VALUES (default,?,?,?)");
+            PreparedStatement pst = connection.prepareStatement(
+                    "INSERT INTO Cliente (id_cliente, nome, divida, historico) " + "VALUES (default,?,?,?)");
             pst.setString(1, c.getNome());
             pst.setDouble(2, c.getDivida());
             pst.setArray(3, (Array) c.getHistorico());
@@ -62,7 +60,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-     
+
     public boolean setItemVenda(ItemVendaModel i, VendaModel v, ProdutoModel p) {
         try {
             PreparedStatement pst = connection.prepareStatement(
@@ -78,7 +76,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-    
+
     public boolean setProduto(ProdutoModel p) {
         try {
             PreparedStatement pst = connection.prepareStatement(
@@ -93,7 +91,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-    
+
     public boolean setVenda(VendaModel v, ClienteModel c) {
         try {
             PreparedStatement pst = connection
@@ -109,7 +107,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-  
+
     public boolean executeSql(String sql) {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
