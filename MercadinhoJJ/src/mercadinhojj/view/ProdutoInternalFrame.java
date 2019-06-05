@@ -206,8 +206,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
            
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum produto para realizar a ação");
-        }
-     
+        }     
     }//GEN-LAST:event_deletarprodActionPerformed
 
     private void tabelaprodutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaprodutosMouseClicked

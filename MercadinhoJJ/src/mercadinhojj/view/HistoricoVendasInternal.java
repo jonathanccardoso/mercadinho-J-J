@@ -5,6 +5,8 @@
  */
 package mercadinhojj.view;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author kadu
@@ -15,6 +17,7 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
      * Creates new form HistoricoVendasInternal
      */
     public HistoricoVendasInternal() {
+        this.area = mercadinhojj.view.MercadoView.area;
         initComponents();
     }
 
@@ -50,6 +53,11 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
         jLabel1.setText("Historico de Vendas");
 
         jButton1.setText("Visualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,7 +91,15 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        HistoricoCliente j =new HistoricoCliente();
+        area.add(j);
+        j.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private JDesktopPane area;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
