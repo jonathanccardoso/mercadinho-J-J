@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package mercadinhojj;
+
 import javax.swing.JFrame;
 import java.util.*;
 import mercadinhojj.model.*;
-
-
+import mercadinhojj.DAO.*;
 
 /**
  *
@@ -17,7 +17,9 @@ import mercadinhojj.model.*;
 public class MercadinhoJJ {
 
     public static void main(String[] args) {
-        ArrayList <ClienteModel> clientes= new ArrayList();
+        // private ConexaoDAO connection = new ConexaoDAO();
+
+        ArrayList<ClienteModel> clientes = new ArrayList();
     }
-    
+
 }
