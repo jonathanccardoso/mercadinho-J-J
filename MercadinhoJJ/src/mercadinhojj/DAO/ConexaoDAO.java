@@ -27,10 +27,10 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
+    private String url = "jdbc:postgresql://ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
     private String usuario = "wawmbiizuephkm";
     private String senha = "97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be";
-    private String url = "jdbc:postgresql://ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
-    //private String url = "jdbc:postgresql:localhost:5432/postgres";
+    // [localhost] "jdbc:postgresql:localhost:5432/postgres";
     
     public ConexaoDAO() {
 
