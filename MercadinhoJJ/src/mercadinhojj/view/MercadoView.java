@@ -16,7 +16,7 @@ import mercadinhojj.model.ProdutoModel;
  */
 public class MercadoView extends javax.swing.JFrame {
 
-    //private ConexaoDAO db = new ConexaoDAO();
+    private ConexaoDAO db = new ConexaoDAO();
     
     /**
      * Creates new form MercadoView2
