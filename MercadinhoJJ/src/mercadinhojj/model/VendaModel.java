@@ -2,6 +2,7 @@ package mercadinhojj.model;
 
 import java.util.Date;
 import java.util.*;
+import mercadinhojj.exceptions.VendaInvalida;
 
 public class VendaModel {
     private int id;
@@ -14,7 +15,7 @@ public class VendaModel {
         super();
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean fiado) {
+    public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean fiado) {        
         super();
         this.produtos = new ArrayList();
         this.valorTotal = valorTotal;
@@ -25,8 +26,6 @@ public class VendaModel {
     public ArrayList<ProdutoModel> getProdutos() {
         return produtos;
     }
-
-    
 
     public double getValorTotal() {
         return valorTotal;
