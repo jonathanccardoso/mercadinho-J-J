@@ -42,7 +42,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel4" max="32767" attributes="0"/>
-                                      <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="qtdtxt" alignment="0" max="32767" attributes="0"/>
                                       <Component id="adicionarProduto" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jDesktopPane1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -92,7 +92,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                              <Component id="qtdtxt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="adicionarProduto" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -202,13 +202,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="remover"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Quantidade"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="qtdtxt">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
