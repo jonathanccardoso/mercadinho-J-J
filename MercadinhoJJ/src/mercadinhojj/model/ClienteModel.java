@@ -15,13 +15,12 @@ public class ClienteModel {
         super();
     }
 
-    public ClienteModel(String nome, String CPF, String endereco, double divida) {
+    public ClienteModel(String nome, String CPF, String endereco, double divida) {     
         super();
         this.CPF = CPF;
         this.nome = nome;
         this.endereco = endereco;
         this.divida = divida;
-
     }
 
     public String getNome() {

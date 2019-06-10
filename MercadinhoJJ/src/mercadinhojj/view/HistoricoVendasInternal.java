@@ -17,7 +17,6 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
      * Creates new form HistoricoVendasInternal
      */
     public HistoricoVendasInternal() {
-        this.area = mercadinhojj.view.MercadoView.area;
         initComponents();
     }
 
@@ -33,7 +32,7 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelavendas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        visualizarAciton = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -45,17 +44,17 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cliente","Data","Valor"
+                "Data","Cliente","Valor"
             }
         ));
         jScrollPane1.setViewportView(tabelavendas);
 
         jLabel1.setText("Historico de Vendas");
 
-        jButton1.setText("Visualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        visualizarAciton.setText("Visualizar");
+        visualizarAciton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                visualizarAcitonActionPerformed(evt);
             }
         });
 
@@ -71,7 +70,7 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
                 .addGap(100, 100, 100)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(visualizarAciton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,7 +82,7 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(visualizarAciton)
                         .addGap(143, 143, 143)))
                 .addContainerGap())
         );
@@ -91,19 +90,20 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void visualizarAcitonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarAcitonActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        HistoricoCliente j =new HistoricoCliente();
-        area.add(j);
-        j.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        HistoricoCliente hc= new HistoricoCliente();
+        area.add(hc);
+        hc.setVisible(true);
+    }//GEN-LAST:event_visualizarAcitonActionPerformed
 
-    private JDesktopPane area;
+    private JDesktopPane area= mercadinhojj.view.MercadoView.area;
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelavendas;
+    private javax.swing.JButton visualizarAciton;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
+import mercadinhojj.model.VendaModel;
 
 /**
  *
@@ -20,7 +21,32 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form VendaInternalFrame
      */
+     private ArrayList<ProdutoModel> copytoAL(ArrayList<ProdutoModel>a){
+        //zerando o que vai receber a copia
+        ArrayList<ProdutoModel>b= new ArrayList<>();
+        for(ProdutoModel p:a){
+            
+            ProdutoModel copiaProduto= new ProdutoModel();
+            //foi necessario criar uma cópia para evitar problemas com referencia
+            //criando a copia de cada produto para inserir num array temporario
+            copiaProduto.setSlote(p.getSlote());
+            copiaProduto.setId(p.getId());
+            copiaProduto.setNome(p.getNome());
+            copiaProduto.setQuantidade(p.getQuantidade());
+            copiaProduto.setPreco(p.getPreco());
+            //fim criar copia 
+            
+            b.add(copiaProduto);
+        }
+        return b;
+    }
     public VendaInternalFrame() {
+        produtosTemp=copytoAL(produtos);
+        for(ProdutoModel p:produtosTemp){
+            System.out.println("ha produto");
+              
+        }
+        System.out.println("ola mundo");
         initComponents();
     }
 
@@ -42,9 +68,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelacompra = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        RemoverProduto = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        qtdtxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -72,13 +98,13 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nova Venda");
 
-        produtosMatriz = new Object[produtos.size()][4];
+        produtosMatriz = new Object[produtosTemp.size()][4];
 
-        for(int i=0;i<produtos.size();i++){
-            produtosMatriz[i][0]=produtos.get(i).getSlote();
-            produtosMatriz[i][1]=produtos.get(i).getNome();
-            produtosMatriz[i][2]=produtos.get(i).getPreco();
-            produtosMatriz[i][3]=produtos.get(i).getQuantidade();
+        for(int i=0;i<produtosTemp.size();i++){
+            produtosMatriz[i][0]=produtosTemp.get(i).getSlote();
+            produtosMatriz[i][1]=produtosTemp.get(i).getNome();
+            produtosMatriz[i][2]=produtosTemp.get(i).getPreco();
+            produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();
         }
         tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
             produtosMatriz,
@@ -107,7 +133,12 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tabelacompra);
 
-        jButton2.setText("remover");
+        RemoverProduto.setText("remover");
+        RemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoverProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Quantidade");
 
@@ -133,13 +164,12 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField1)
-                                        .addComponent(adicionarProduto, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(qtdtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(adicionarProduto)))
                             .addComponent(clientesList, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,14 +177,14 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(RemoverProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(271, 271, 271)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
+                        .addGap(259, 259, 259)
                         .addComponent(jLabel5)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,32 +204,68 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(qtdtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(adicionarProduto)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)))
-                .addComponent(jLabel5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton2)
+                        .addGap(45, 45, 45)
+                        .addComponent(RemoverProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addContainerGap())
+                        .addComponent(jButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    private void updateEstoque(){
+        produtosMatriz = new Object[produtosTemp.size()][4];
+        
+        for (int i=0;i<produtosTemp.size();i++){
+            produtosMatriz[i][0]=produtosTemp.get(i).getSlote();
+            produtosMatriz[i][1]=produtosTemp.get(i).getNome();
+            produtosMatriz[i][2]=produtosTemp.get(i).getPreco();
+            produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();
+        }
+        
+        tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
+           produtosMatriz,
+            new String [] {
+                "ID", "Produto", "Preço", "Qtd_disponivel"
+            }
+        
+        ));
+        
+    }
+    private void updateCarrinho(){
+        carrinhoMatriz= new Object[carrinho_de_compras.size()][4];
+        for(int i=0;i<carrinho_de_compras.size();i++){
+            carrinhoMatriz[i][0]=carrinho_de_compras.get(i).getSlote();
+            carrinhoMatriz[i][1]=carrinho_de_compras.get(i).getNome();
+            carrinhoMatriz[i][2]=carrinho_de_compras.get(i).getPreco();
+            carrinhoMatriz[i][3]=carrinho_de_compras.get(i).getQuantidade();
+            
+        }
+        tabelacompra.setModel(new javax.swing.table.DefaultTableModel(
+           carrinhoMatriz,
+            new String [] {
+                "ID", "Produto", "Preço", "Qtd_disponivel"
+            }
+        
+        ));
+    }
     private void clientesListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesListActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_clientesListActionPerformed
@@ -209,9 +275,45 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         int i=tabelaprodutos.getSelectedRow();
         
         if(i!=-1){
-               DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
-               Object[] dados={produtosMatriz[i][0],produtosMatriz[i][1],produtosMatriz[i][2],produtosMatriz[i][3]};
-               dtmcompras.addRow(dados);
+               //DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
+               ProdutoModel p= new ProdutoModel();
+               p.setSlote(Integer.parseInt(produtosMatriz[i][0].toString()));
+               p.setNome(produtosMatriz[i][1].toString());
+               p.setPreco(Double.parseDouble(produtosMatriz[i][2].toString()));
+               p.setQuantidade(Integer.parseInt(qtdtxt.getText()));
+                
+               boolean has=false;
+               int index=-1;
+               for(ProdutoModel pro: carrinho_de_compras){
+                   if(pro.getSlote()==p.getSlote()){
+                       has=true;
+                       pro.setQuantidade(pro.getQuantidade()+Integer.parseInt(qtdtxt.getText()));
+                     
+                           
+                       break;
+                   }
+               }
+               if(!has){
+                   carrinho_de_compras.add(p);
+               }
+                 for(ProdutoModel p2:produtosTemp){
+                           if(p2.getSlote()==Integer.parseInt(produtosMatriz[i][0].toString())){
+                               p2.setQuantidade(p2.getQuantidade()-Integer.parseInt(qtdtxt.getText()));
+                           }
+                       }
+               updateCarrinho();
+               
+               
+               
+               /*remover do estoque*/
+               String x= tabelaprodutos.getValueAt(i, 3).toString();
+               int restante= Integer.parseInt(x)-Integer.parseInt(qtdtxt.getText());
+               tabelaprodutos.setValueAt((Object)restante , tabelaprodutos.getSelectedRow(),3);
+               
+              
+               
+               
+               
         }else{
             JOptionPane.showMessageDialog(null,"Nenhum item selecionado");
         }
@@ -220,14 +322,42 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_adicionarProdutoActionPerformed
 
+    private void RemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverProdutoActionPerformed
+        // TODO add your handling code here:
+        int row = tabelacompra.getSelectedRow();
+        
+        if (row!=-1){
+          //procurar o produto no estoque pelo ID para poder adicionar o q foi removido
+            for(ProdutoModel produto:produtosTemp){
+                if(produto.getSlote()==Integer.parseInt(carrinhoMatriz[row][0].toString())){
+                  produto.setQuantidade(produto.getQuantidade()+Integer.parseInt(carrinhoMatriz[row][3].toString()));
+                  carrinho_de_compras.remove(row);
+                  tabelacompra.remove(row);
+                  break;
+                 
+                }
+                
+            }
+            updateEstoque();
+            updateCarrinho();
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Selecione um item para remover do carrinho");
+        }
+      
+    }//GEN-LAST:event_RemoverProdutoActionPerformed
+
     
     private ArrayList <ClienteModel> clientes=MercadoView.clientes;
     private ArrayList<ProdutoModel> produtos= MercadoView.produtos;
     private Object produtosMatriz [][];
+    private Object carrinhoMatriz [][];
+    private ArrayList<ProdutoModel> produtosTemp= new ArrayList<>();
+    private ArrayList <ProdutoModel> carrinho_de_compras= new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RemoverProduto;
     private javax.swing.JButton adicionarProduto;
     private javax.swing.JComboBox<String> clientesList;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -238,7 +368,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField qtdtxt;
     private javax.swing.JTable tabelacompra;
     private javax.swing.JTable tabelaprodutos;
     // End of variables declaration//GEN-END:variables
