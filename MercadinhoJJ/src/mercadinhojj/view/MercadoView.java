@@ -23,7 +23,9 @@ public class MercadoView extends javax.swing.JFrame {
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
         ProdutoModel p= new ProdutoModel("bom bril", 12, 5, 4.99);
+        ClienteModel kadu= new ClienteModel("Kadu", "112.777.888-23","Rua de teste", 0);
         produtos.add(p);
+        clientes.add(kadu);
      
         initComponents();
     }
