@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package mercadinhojj;
+
 import javax.swing.JFrame;
 import java.util.*;
 import mercadinhojj.model.*;
-
-
+import mercadinhojj.DAO.*;
 
 /**
  *
@@ -31,6 +31,10 @@ public class MercadinhoJJ {
         }
     }
     public static void main(String[] args) {
+      //private ConexaoDAO connection = new ConexaoDAO();
+
+        ArrayList<ClienteModel> clientes = new ArrayList();
+
         ProdutoModel feijao= new ProdutoModel("feijao", 226, 5, 2.78);
         ProdutoModel arroz= new ProdutoModel("arroz", 226, 6, 2.78);
         
@@ -50,8 +54,7 @@ public class MercadinhoJJ {
             System.out.println(p.getNome()+"/"+p.getQuantidade());
             
         }
-        
-        
+      
     }
-    
+
 }
