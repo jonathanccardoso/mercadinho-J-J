@@ -30,7 +30,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
             //foi necessario criar uma cópia para evitar problemas com referencia
             //criando a copia de cada produto para inserir num array temporario
             copiaProduto.setSlote(p.getSlote());
-            copiaProduto.setId(p.getId());
+            //copiaProduto.setId(p.getId());
             copiaProduto.setNome(p.getNome());
             copiaProduto.setQuantidade(p.getQuantidade());
             copiaProduto.setPreco(p.getPreco());

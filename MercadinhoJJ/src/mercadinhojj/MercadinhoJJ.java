@@ -8,7 +8,7 @@ package mercadinhojj;
 import javax.swing.JFrame;
 import java.util.*;
 import mercadinhojj.model.*;
-import mercadinhojj.DAO.*;
+import mercadinhojj.DAO.ConexaoDAO;
 
 /**
  *
@@ -22,7 +22,8 @@ public class MercadinhoJJ {
             
             ProdutoModel copiaProduto= new ProdutoModel();
             //criando a copia de cada produto para inserir num array temporario
-            copiaProduto.setId(p.getId());
+            
+            //copiaProduto.setId(p.getId());
             copiaProduto.setNome(p.getNome());
             copiaProduto.setQuantidade(p.getQuantidade());
             copiaProduto.setPreco(p.getPreco());
@@ -31,7 +32,7 @@ public class MercadinhoJJ {
         }
     }
     public static void main(String[] args) {
-      //private ConexaoDAO connection = new ConexaoDAO();
+        //private ConexaoDAO con = new ConexaoDAO();
 
         ArrayList<ClienteModel> clientes = new ArrayList();
 

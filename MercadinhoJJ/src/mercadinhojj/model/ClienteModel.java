@@ -59,7 +59,6 @@ public class ClienteModel {
         this.CPF = CPF;
     }
 
-    //
     public void pagarDivida(double valor) {
         this.divida -= valor;
     }

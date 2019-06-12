@@ -1,9 +1,8 @@
 package mercadinhojj.model;
 
 public class ProdutoModel {
-    private int id;
-    private String nome;
     private int slote;
+    private String nome;
     private int quantidade;
     private double preco;
 
@@ -51,11 +50,4 @@ public class ProdutoModel {
         this.preco = preco;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

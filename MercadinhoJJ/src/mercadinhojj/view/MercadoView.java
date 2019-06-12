@@ -6,6 +6,7 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.model.VendaModel;
@@ -19,7 +20,11 @@ public class MercadoView extends javax.swing.JFrame {
     /**
      * Creates new form MercadoView2
      */
+    
+   private ConexaoDAO con = new ConexaoDAO();
+    
     public MercadoView() {
+        
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
         ProdutoModel p= new ProdutoModel("bom bril", 12, 5, 4.99);

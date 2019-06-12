@@ -27,7 +27,8 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
-    private String url = "jdbc:postgresql://ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
+    //private String url = "jdbc:postgresql://ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
+    private String url = "jdbc:postgres://ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
     private String usuario = "wawmbiizuephkm";
     private String senha = "97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be";
     // [localhost] "jdbc:postgresql:localhost:5432/postgres";
@@ -70,7 +71,7 @@ public class ConexaoDAO {
             pst.setString(1, i.getProduto());
             pst.setInt(2, i.getQuantidade());
             pst.setInt(3, v.getId());
-            pst.setInt(4, p.getId());
+            //pst.setInt(4, p.getId());
             pst.execute();
             return true;
         } catch (SQLException ex) {
@@ -99,7 +100,7 @@ public class ConexaoDAO {
                     .prepareStatement("INSERT INTO Venda (id_venda, valorTotal, data, fiado, fk_Cliente_id_cliente) "
                             + "VALUES (default,?,?,?,?)");
             pst.setDouble(1, v.getValorTotal());
-            pst.setDate(2, (Date) v.getData());
+            //pst.setDate(2, (Date) v.getData());
             pst.setBoolean(3, v.getFiado());
             pst.setInt(5, c.getId());
             pst.execute();

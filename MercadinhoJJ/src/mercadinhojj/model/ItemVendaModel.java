@@ -4,6 +4,8 @@ public class ItemVendaModel {
 
     private String produto;
     private int quantidade;
+    private VendaModel venda_fk;
+    private ProdutoModel produto_fk;
 
     public String getProduto() {
         return produto;
@@ -13,9 +15,11 @@ public class ItemVendaModel {
         return quantidade;
     }
     
-    public ItemVendaModel(String produto, Integer quantidade) {
+    public ItemVendaModel(String produto, int quantidade, VendaModel venda_fk, ProdutoModel produto_fk) {
         this.produto = produto;
         this.quantidade = quantidade;
+        this.venda_fk = venda_fk;
+        this.produto_fk = produto_fk;
     }
     
     public void setProduto(String produto) {
