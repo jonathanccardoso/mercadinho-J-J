@@ -37,7 +37,6 @@ public class ConexaoDAO {
         try {
             System.setProperty("jdbc.Drivers", "org.postgresql.Driver");
             connection = DriverManager.getConnection(url, usuario, senha);
-            System.out.println("COnexão realizada!");
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -47,11 +46,10 @@ public class ConexaoDAO {
     public void disconnect() throws SQLException {
         connection.close();
     }
-
-    public boolean setClient(ClienteModel c) {
+    
+     public boolean setClient(ClienteModel c) {
         try {
-            PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Cliente (id_cliente, nome, divida, historico) " + "VALUES (default,?,?,?)");
+            PreparedStatement pst = connection.prepareStatement("INSERT INTO Cliente (id_cliente, nome, divida, historico) " + "VALUES (default,?,?,?)");
             pst.setString(1, c.getNome());
             pst.setDouble(2, c.getDivida());
             pst.setArray(3, (Array) c.getHistorico());
@@ -61,7 +59,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-
+     
     public boolean setItemVenda(ItemVendaModel i, VendaModel v, ProdutoModel p) {
         try {
             PreparedStatement pst = connection.prepareStatement(
@@ -77,7 +75,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-
+    
     public boolean setProduto(ProdutoModel p) {
         try {
             PreparedStatement pst = connection.prepareStatement(
@@ -92,7 +90,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-
+    
     public boolean setVenda(VendaModel v, ClienteModel c) {
         try {
             PreparedStatement pst = connection
@@ -108,7 +106,7 @@ public class ConexaoDAO {
             return false;
         }
     }
-
+  
     public boolean executeSql(String sql) {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);

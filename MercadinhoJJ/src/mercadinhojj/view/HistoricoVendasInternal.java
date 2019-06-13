@@ -5,7 +5,9 @@
  */
 package mercadinhojj.view;
 
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import mercadinhojj.model.VendaModel;
 
 /**
  *
@@ -36,15 +38,19 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
+        Object vendas [][]= new Object [totalVendas.size()][4];
+        int i =0;
+        for (VendaModel v: totalVendas){
+            vendas[i][0]=v.getId();
+            vendas[i][1]=v.getData();
+            vendas[i][2]="Cliente qualquer";
+            vendas[i][3]=v.calcularValorTotal();
+            i++;
+        }
         tabelavendas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            vendas,
             new String [] {
-                "Data","Cliente","Valor"
+                "ID","Data","Cliente","Valor"
             }
         ));
         jScrollPane1.setViewportView(tabelavendas);
@@ -99,7 +105,8 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_visualizarAcitonActionPerformed
 
     private JDesktopPane area= mercadinhojj.view.MercadoView.area;
-            
+    private static ArrayList<VendaModel> totalVendas= mercadinhojj.view.MercadoView.totalVendas;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

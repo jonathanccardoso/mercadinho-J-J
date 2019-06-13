@@ -6,6 +6,7 @@ import mercadinhojj.exceptions.VendaInvalida;
 
 public class VendaModel {
     private int id;
+    
     private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
     private Date data;
@@ -13,11 +14,13 @@ public class VendaModel {
 
     public VendaModel() {
         super();
+        this.produtos = new ArrayList<>();
+        this.fiado=false;
     }
 
     public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean fiado) {        
         super();
-        this.produtos = new ArrayList();
+        this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
         this.data = data;
         this.fiado = fiado;
@@ -52,6 +55,7 @@ public class VendaModel {
     }
   
     public void adicionarProduto(ProdutoModel p){
+      
         this.produtos.add(p);
     }
     public void removerProduto(ProdutoModel p){
@@ -76,5 +80,13 @@ public class VendaModel {
 
     public boolean getFiado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public Double calcularValorTotal(){
+        Double valorTotal=0.0;
+        
+        for(ProdutoModel p :produtos){
+            valorTotal+=p.getPreco()*p.getQuantidade();
+        }
+        return valorTotal;
     }
 }

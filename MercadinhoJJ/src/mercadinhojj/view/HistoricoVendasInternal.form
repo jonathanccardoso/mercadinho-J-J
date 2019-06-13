@@ -65,7 +65,7 @@
         <Component class="javax.swing.JTable" name="tabelavendas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {null, null, null, null},&#xa;        {null, null, null, null},&#xa;        {null, null, null, null},&#xa;        {null, null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;Data&quot;,&quot;Cliente&quot;,&quot;Valor&quot;&#xa;    }&#xa;)" type="code"/>
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;   vendas,&#xa;    new String [] {&#xa;        &quot;ID&quot;,&quot;Data&quot;,&quot;Cliente&quot;,&quot;Valor&quot;&#xa;    }&#xa;)" type="code"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0"/>
@@ -74,6 +74,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Object vendas [][]= new Object [totalVendas.size()][4];&#xa;int i =0;&#xa;for (VendaModel v: totalVendas){&#xa;    vendas[i][0]=v.getId();&#xa;    vendas[i][1]=v.getData();&#xa;    vendas[i][2]=&quot;Cliente qualquer&quot;;&#xa;    vendas[i][3]=v.calcularValorTotal();&#xa;    i++;&#xa;}"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
