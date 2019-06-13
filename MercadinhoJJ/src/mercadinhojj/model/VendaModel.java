@@ -45,7 +45,7 @@ public class VendaModel {
         this.data = data;
     }
 
-    public boolean isdebito() {
+    public boolean isDebito() {
         return debito;
     }
 

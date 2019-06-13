@@ -21,16 +21,18 @@ public class MercadoView extends javax.swing.JFrame {
      * Creates new form MercadoView2
      */
     
-   private ConexaoDAO con = new ConexaoDAO();
+    private ConexaoDAO con = new ConexaoDAO();
+    private ClienteModel cliente;
     
     public MercadoView() {
-        
+                
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
-        ProdutoModel p= new ProdutoModel("bom bril", 12, 5, 4.99);
-        ClienteModel kadu= new ClienteModel("Kadu", "112.777.888-23","Rua de teste", 0);
+        ProdutoModel p = new ProdutoModel("bom bril", 12, 5, 4.99);
+        ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
         produtos.add(p);
         clientes.add(kadu);
+        //con.setClient(kadu); //ok
      
         initComponents();
     }
@@ -163,9 +165,15 @@ public class MercadoView extends javax.swing.JFrame {
 
     private void cadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarClienteActionPerformed
         // TODO add your handling code here:
-        ClienteInternalFrame cadcliente= new ClienteInternalFrame();
+        ClienteInternalFrame cadcliente = new ClienteInternalFrame();
+        
         area.add(cadcliente);
+        System.out.println("quero cadastrar");
+        //ClienteModel cadcliente = new ClienteModel();
+        //con.setClient(cadcliente);
+        
         cadcliente.setVisible(true);
+        System.out.println("mostrar quero cadastrar");
     }//GEN-LAST:event_cadastrarClienteActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -183,7 +191,7 @@ public class MercadoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        ProdutoInternalFrame cadproduto= new ProdutoInternalFrame();
+        ProdutoInternalFrame cadproduto = new ProdutoInternalFrame();
         area.add(cadproduto);
         cadproduto.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed

@@ -18,7 +18,7 @@ public class MercadoModel {
         this.nome = nome;
         this.proprietario = proprietario;
         CNPJ = cNPJ;
-        this.clientes = clientes;
+        //this.clientes = clientes;
     }
 
     public String getNome() {
@@ -60,8 +60,6 @@ public class MercadoModel {
     public void removerCliente(ClienteModel c){
         clientes.remove(c);
     }
-
-    
     
     public ArrayList<ClienteModel>listarClientes() {
         return clientes;
@@ -104,7 +102,7 @@ public class MercadoModel {
       public double verificarLucro(ClienteModel c){
           int total=0;
           for(VendaModel v : this.vendas){
-             if(!v.isFiado()){
+             if(!v.isDebito()){
                  total+=v.getValorTotal();
              }  
           }

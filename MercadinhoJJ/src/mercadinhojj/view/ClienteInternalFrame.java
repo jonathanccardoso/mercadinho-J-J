@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.ClienteModel;
 import static mercadinhojj.view.MercadoView.clientes;
 
@@ -21,6 +22,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form ClienteInternalFrame
      */
+    
+    private ConexaoDAO con = new ConexaoDAO();
+    
     public ClienteInternalFrame() {
         ArrayList<ClienteModel>clientes;
         initComponents();
@@ -211,10 +215,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         String endereco=enderecotxt.getText();
         double divida=Double.parseDouble(dividatxt.getText());
         String cpf= cpftxt.getText();
-        ClienteModel novoCliente= new ClienteModel(nome,cpf,endereco,divida);
+        ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
         clientes.add(novoCliente);
-        
-        
+        con.setClient(novoCliente);        
         
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
         Object[] dados={nometxt.getText(),cpftxt.getText(),enderecotxt.getText(),dividatxt.getText()};
@@ -231,15 +234,19 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
     private void deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarActionPerformed
         // TODO add your handling code here:
        
-        int s=tabelaclientes.getSelectedRow();
-        
+        int s = tabelaclientes.getSelectedRow();        
 
         if(tabelaclientes.getSelectedRow()!=-1){
             clientes.remove(s);
-            DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
+            DefaultTableModel dtmprodutos = (DefaultTableModel)tabelaclientes.getModel();
             dtmprodutos.removeRow(tabelaclientes.getSelectedRow());
             
-          
+            String nome=nometxt.getText();
+            String endereco=enderecotxt.getText();
+            double divida=Double.parseDouble(dividatxt.getText());
+            String cpf= cpftxt.getText();
+            ClienteModel delCliente= new ClienteModel(cpf,nome,endereco,divida);
+            con.delCliente(delCliente);
             
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum cliente para completar a açao!");
@@ -265,16 +272,17 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         String endereco=enderecotxt.getText();
         double divida=Double.parseDouble(dividatxt.getText());
         String cpf= cpftxt.getText();
-        ClienteModel novoCliente= new ClienteModel(nome,cpf,endereco,divida);
-        int linha=tabelaclientes.getSelectedRow();
+        ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
+        con.updateCliente(novoCliente);
+        
+        int linha = tabelaclientes.getSelectedRow();
         clientes.remove(tabelaclientes.getSelectedRow());
         clientes.add(tabelaclientes.getSelectedRow(),novoCliente);
         
-        
-         tabelaclientes.setValueAt(nometxt.getText(), tabelaclientes.getSelectedRow(),0);
-         tabelaclientes.setValueAt(cpftxt.getText(), tabelaclientes.getSelectedRow(),1);
-         tabelaclientes.setValueAt(enderecotxt.getText(), tabelaclientes.getSelectedRow(),2);
-         tabelaclientes.setValueAt(dividatxt.getText(), tabelaclientes.getSelectedRow(),3);
+        tabelaclientes.setValueAt(nometxt.getText(), tabelaclientes.getSelectedRow(),0);
+        tabelaclientes.setValueAt(cpftxt.getText(), tabelaclientes.getSelectedRow(),1);
+        tabelaclientes.setValueAt(enderecotxt.getText(), tabelaclientes.getSelectedRow(),2);
+        tabelaclientes.setValueAt(dividatxt.getText(), tabelaclientes.getSelectedRow(),3);
         
     }//GEN-LAST:event_atualizarActionPerformed
     
