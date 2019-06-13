@@ -6,15 +6,7 @@ public class ItemVendaModel {
     private int quantidade;
     private VendaModel venda_fk;
     private ProdutoModel produto_fk;
-
-    public String getProduto() {
-        return produto;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-    
+ 
     public ItemVendaModel(String produto, int quantidade, VendaModel venda_fk, ProdutoModel produto_fk) {
         this.produto = produto;
         this.quantidade = quantidade;
@@ -28,6 +20,14 @@ public class ItemVendaModel {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+    
+    public String getProduto() {
+        return produto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
 }

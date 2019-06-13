@@ -52,83 +52,137 @@ public class ConexaoDAO {
     public boolean setClient(ClienteModel c) {
         try {
             PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Cliente (id_cliente, nome, divida, historico) " + "VALUES (default,?,?,?)");
-            pst.setString(1, c.getNome());
-            pst.setDouble(2, c.getDivida());
-            pst.setArray(3, (Array) c.getHistorico());
+                    "insert into cliente (cpf, nome, endereco, divida) " + "VALUES (?,?,?,?)");
+            pst.setString(1, c.getCPF());
+            pst.setString(2, c.getNome());
+            pst.setString(3, c.getEndereco());
+            pst.setDouble(4, c.getDivida());
+            //pst.setArray(5, (Array) c.getHistorico());
             pst.execute();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
         }
     }
 
-    public boolean setItemVenda(ItemVendaModel i, VendaModel v, ProdutoModel p) {
+    public void updateCliente(ClienteModel c){
         try {
-            PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Item_Venda (produto, quantidade, fk_Venda_id_venda, fk_Produto_id_produto) "
-                            + "VALUES (?, ?, ?, ?)");
-            pst.setString(1, i.getProduto());
-            pst.setInt(2, i.getQuantidade());
-            pst.setInt(3, v.getId());
-            //pst.setInt(4, p.getId());
-            pst.execute();
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-    }
-
-    public boolean setProduto(ProdutoModel p) {
-        try {
-            PreparedStatement pst = connection.prepareStatement(
-                    "INSERT INTO Produto (id_produto, nome, slote, quantidade, preco) " + "VALUES (default,?,?,?,?)");
-            pst.setString(1, p.getNome());
-            pst.setInt(2, p.getSlote());
-            pst.setInt(3, p.getQuantidade());
-            pst.setDouble(4, p.getPreco());
-            pst.execute();
-            return true;
-        } catch (SQLException ex) {
-            return false;
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            rs = stm.executeQuery(
+                    "update cliente set "
+                        + "nome = '" + c.getNome() +"', "
+                        + "endereco = '" + c.getEndereco() +"', "
+                        + "divida = '" + c.getDivida() +"' "
+                    + "where cliente.cpf = '"+ c.getCPF() +"'"
+            );
+        } catch(SQLException ex){
+            System.out.println(ex);
         }
     }
 
     public boolean setVenda(VendaModel v, ClienteModel c) {
         try {
-            PreparedStatement pst = connection
-                    .prepareStatement("INSERT INTO Venda (id_venda, valorTotal, data, fiado, fk_Cliente_id_cliente) "
-                            + "VALUES (default,?,?,?,?)");
+            PreparedStatement pst = connection.prepareStatement(
+                    "insert into venda (id_venda, valor_total, data_venda, debito, cpf_cliente) " + "VALUES (default,?,?,?,?)");
             pst.setDouble(1, v.getValorTotal());
-            //pst.setDate(2, (Date) v.getData());
-            pst.setBoolean(3, v.getFiado());
-            pst.setInt(5, c.getId());
+            pst.LocalDate(2, v.getData());
+            pst.setBoolean(3, v.getDebito());
+            pst.setString(4, c.getCPF());
             pst.execute();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
         }
+    }
+
+    public void updateVenda(VendaModel v, ClienteModel c){
+        try {
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            rs = stm.executeQuery(
+                    "update venda set "
+                        + "valor_total = '" + v.getValorTotal()+"', "
+                        + "data_venda = '" + v.getData()+"', "
+                        + "debito = '" + v.getDebito()+"' "
+                    + "where venda.id_venda = '"+p.getId()+"'"
+            );
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }
+    }
+
+    public void setProduto(ProdutoModel p) {
+        try {
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            rs = stm.executeQuery(
+                    "insert into produto VALUES ( "
+                        + "default,"
+                        + "'"+ p.getNome() +"', "
+                        + "'"+ p.getQuantidade() +"', "
+                        + "'"+ p.getPreco() + ");"
+            );
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void updateProduto(ProdutoModel p){
+        try {
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            rs = stm.executeQuery(
+                    "update produto set "
+                        + "nome = '" + v.getValorTotal()+"', "
+                        + "quantidade = '" + v.getQuantidade()+"', "
+                        + "preco = '" + v.getPreco()+"' "
+                    + "where produto.slote = '"+p.getSlote()+"'"
+            );
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }
+    }
+
+    // mask test for item_venda
+    public boolean setItemVenda(ItemVendaModel i, VendaModel v, ProdutoModel p) {
+        try {
+            PreparedStatement pst = connection.prepareStatement(
+                    "INSERT INTO item_venda (produto, quantidade, fk_Venda_id_venda, fk_Produto_id_produto) "
+                            + "VALUES (?, ?, ?, ?)");
+            pst.setString(1, i.getProduto());
+            pst.setInt(2, i.getQuantidade());
+            pst.setInt(3, v.getId());
+            pst.setInt(4, p.getSlote());
+            pst.execute();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+    public List listProdutos(ProdutoModel p){
+        List<String> produtos = new ArrayList<>();
+        try {
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            // rs = stm.executeQuery("select * from produtos where cod_perfil='"+p.getId()+"'");
+            rs = stm.executeQuery("select * from produtos");
+            // while(rs.next()){
+            //     produtos.add(rs.getString("local"));
+            // }
+        } catch(SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produtos;        
     }
 
     public boolean executeSql(String sql) {
         try {
-            stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
-            resultSet = stm.executeQuery(sql);
+            stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY);
+            rs = stm.executeQuery(sql);
             return true;
         } catch (SQLException e) {
+            System.out.println(ex);
             return false;
-        }
-    }
-
-    public ResultSet executeSearch(String sql) {
-        try {
-            stm = connection.createStatement();
-            resultSet = stm.executeQuery(sql);
-            connection.close();
-            return resultSet;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 

@@ -15,7 +15,7 @@ public class ClienteModel {
         super();
     }
 
-    public ClienteModel(String nome, String CPF, String endereco, double divida) {     
+    public ClienteModel(String CPF, String nome, String endereco, double divida) {     
         super();
         this.CPF = CPF;
         this.nome = nome;

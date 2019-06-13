@@ -6,8 +6,8 @@ public class MercadoModel {
     private String nome;
     private String proprietario;
     private int CNPJ;
-    private ArrayList <ClienteModel> clientes =new ArrayList();
-    private ArrayList <VendaModel> vendas= new ArrayList();
+    private ArrayList <ClienteModel> clientes = new ArrayList();
+    private ArrayList <VendaModel> vendas = new ArrayList();
 
     public MercadoModel() {
         super();
@@ -19,7 +19,6 @@ public class MercadoModel {
         this.proprietario = proprietario;
         CNPJ = cNPJ;
         this.clientes = clientes;
-       
     }
 
     public String getNome() {
