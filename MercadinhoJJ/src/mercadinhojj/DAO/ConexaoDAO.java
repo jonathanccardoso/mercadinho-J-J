@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.*;
+import mercadinhojj.view.ClienteInternalFrame;
 
 /**
  *
@@ -205,19 +207,39 @@ public class ConexaoDAO {
         }
     }*/
 
-    public List listProdutos(ProdutoModel p){
-        List<String> produtos = new ArrayList<>();
+    public List listClientes(){
+        List<ClienteModel> clientes = new ArrayList<>();
+        ClienteModel cliente = new ClienteModel();
+        
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
-            // rs = stm.executeQuery("select * from produtos where cod_perfil='"+p.getId()+"'");
-            resultSet = stm.executeQuery("select * from produtos");
-            // while(rs.next()){
-            //     produtos.add(rs.getString("local"));
-            // }
+            //resultSet = stm.executeQuery("select * from cliente where slote='" + p.getSlote() + "'");
+            resultSet = stm.executeQuery("select * from cliente");
+            //resultSet = stm.executeQuery("select * from cliente where cpf='"+c.getCPF()+"'");
+            
+            while(resultSet.next()){
+                
+                /*
+                model.addRow(new Object[] { 
+                   //retorna os dados da tabela do BD, cada campo e um coluna.
+                   resultSet.getString("tb03_id_pais"),
+                   resultSet.getString("tb03_nome"),
+                   resultSet.getString("tb03_continente")
+                }); 
+                */
+                
+                cliente.setNome(resultSet.getString("nome"));
+                cliente.setCPF(resultSet.getString("cpf"));
+                cliente.setEndereco(resultSet.getString("endereco"));
+                cliente.setDivida(resultSet.getDouble("divida"));
+                
+                clientes.add(cliente);
+            }
         } catch(SQLException ex) {
-            Logger.getLogger(ConexaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-        return produtos;        
+        
+        return clientes;        
     }
 
     public boolean executeSql(String sql) {

@@ -247,7 +247,6 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
             String cpf= cpftxt.getText();
             ClienteModel delCliente= new ClienteModel(cpf,nome,endereco,divida);
             con.delCliente(delCliente);
-            
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum cliente para completar a açao!");
         }

@@ -6,6 +6,7 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
@@ -29,9 +30,26 @@ public class MercadoView extends javax.swing.JFrame {
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
         ProdutoModel p = new ProdutoModel("bom bril", 12, 5, 4.99);
-        ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
         produtos.add(p);
-        clientes.add(kadu);
+        //ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
+        //clientes.add(kadu);
+        
+        List<ClienteModel> clientesx = con.listClientes();
+        
+        for (ClienteModel obj: clientesx) {
+            // clientes.addRow(new Object[]{obj.getNome()});
+            clientes.add(obj);
+        }
+        
+
+        /*Object [][] dados = {
+            {"Ana Monteiro", "48 9923-7898", "ana.monteiro@gmail.com"},
+            {"João da Silva", "48 8890-3345", "joaosilva@hotmail.com"},
+            {"Pedro Cascaes", "48 9870-5634", "pedrinho@gmail.com"}
+        };
+        
+        clientes.add(dados);*/
+        
         //con.setClient(kadu); //ok
      
         initComponents();
