@@ -284,6 +284,8 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     }
     private void clientesListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesListActionPerformed
         // TODO add your handling code here:
+       JOptionPane.showMessageDialog(null,clientesList.getSelectedIndex());
+       id_cliente=clientesList.getSelectedIndex();
     }//GEN-LAST:event_clientesListActionPerformed
 
     private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarProdutoActionPerformed
@@ -384,6 +386,10 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         }
         JOptionPane.showConfirmDialog(null,emDebito.isSelected());
         totalVendas.add(novaVenda);
+        for(ClienteModel c:clientes){
+            clientes.get(id_cliente).inserirCompra(novaVenda);
+            
+        }
         JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
         
     }//GEN-LAST:event_FinalizarCompraActionPerformed
@@ -396,6 +402,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private ArrayList<ProdutoModel> produtosTemp= new ArrayList<>();
     private ArrayList <ProdutoModel> carrinho_de_compras= new ArrayList<>();
     private ArrayList <VendaModel> totalVendas=mercadinhojj.view.MercadoView.totalVendas;
+    private int id_cliente;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton FinalizarCompra;
     private javax.swing.JButton RemoverProduto;

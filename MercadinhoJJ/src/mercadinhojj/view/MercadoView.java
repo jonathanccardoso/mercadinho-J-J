@@ -25,10 +25,12 @@ public class MercadoView extends javax.swing.JFrame {
         totalVendas= new ArrayList<>();
         ProdutoModel p= new ProdutoModel("bom bril", 12, 5, 4.99);
         ClienteModel kadu= new ClienteModel("Kadu", "112.777.888-23","Rua de teste", 15);
-        ClienteModel j= new ClienteModel("Jhonatan", "112.777.888-23","Rua de teste", 0);
+        kadu.setId(1);
+        ClienteModel j= new ClienteModel("Jhonatan", "112.777.888-23","Rua de teste IFR", 0);
         produtos.add(p);
         clientes.add(kadu);
         clientes.add(j);
+       
      
         initComponents();
     }
@@ -266,6 +268,7 @@ public class MercadoView extends javax.swing.JFrame {
     public static ArrayList <ClienteModel> clientes;
     public static ArrayList <ProdutoModel> produtos;
     public static ArrayList <VendaModel> totalVendas;
+    public static ClienteModel clienteanalisado;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem analiseDeDevedores;
