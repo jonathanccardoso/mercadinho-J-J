@@ -1,7 +1,7 @@
 package mercadinhojj.model;
 
 public class ProdutoModel {
-    private int slote;
+    private int lote;
     private String nome;
     private int quantidade;
     private double preco;
@@ -13,7 +13,7 @@ public class ProdutoModel {
     public ProdutoModel(String nome, int slote, int quantidade, double preco) {
         super();
         this.nome = nome;
-        this.slote = slote;
+        this.lote = slote;
         this.quantidade = quantidade;
         this.preco = preco;
     }
@@ -26,12 +26,12 @@ public class ProdutoModel {
         this.nome = nome;
     }
 
-    public int getSlote() {
-        return slote;
+    public int getLote() {
+        return lote;
     }
 
-    public void setSlote(int slote) {
-        this.slote = slote;
+    public void setLote(int lote) {
+        this.lote = lote;
     }
 
     public int getQuantidade() {
@@ -49,5 +49,6 @@ public class ProdutoModel {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+    
 
 }

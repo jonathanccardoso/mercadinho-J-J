@@ -54,7 +54,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         Object produtosMatriz [][]= new Object[produtos.size()][4];
 
         for(int i=0;i<produtos.size();i++){
-            produtosMatriz[i][0]=produtos.get(i).getSlote();
+            produtosMatriz[i][0]=produtos.get(i).getLote();
             produtosMatriz[i][1]=produtos.get(i).getNome();
             produtosMatriz[i][2]=produtos.get(i).getPreco();
             produtosMatriz[i][3]=produtos.get(i).getQuantidade();
@@ -216,7 +216,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         nometxt.setText(produtos.get(linha).getNome());
         precotxt.setText(Double.toString(produtos.get(linha).getPreco()));
         qtdtxt.setText(Integer.toString(produtos.get(linha).getQuantidade()));
-        slotetxt.setText(Integer.toString(produtos.get(linha).getSlote()));
+        slotetxt.setText(Integer.toString(produtos.get(linha).getLote()));
         
         
     }//GEN-LAST:event_tabelaprodutosMouseClicked

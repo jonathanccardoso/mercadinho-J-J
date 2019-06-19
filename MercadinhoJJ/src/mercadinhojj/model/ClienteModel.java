@@ -9,10 +9,11 @@ public class ClienteModel {
     private String CPF;
     private double divida;
 
-    private ArrayList<VendaModel> historico = new ArrayList();
+    private ArrayList<VendaModel> historico ;
 
     public ClienteModel() {
         super();
+        this.historico = new ArrayList();
     }
 
     public ClienteModel(String CPF, String nome, String endereco, double divida) {     
@@ -21,6 +22,8 @@ public class ClienteModel {
         this.nome = nome;
         this.endereco = endereco;
         this.divida = divida;
+        this.historico = new ArrayList();
+
     }
 
     public String getNome() {
@@ -62,7 +65,9 @@ public class ClienteModel {
     public void pagarDivida(double valor) {
         this.divida -= valor;
     }
-
+    public void inserirCompra(VendaModel c){
+       this.historico.add(c);
+    }
     public int getId() {
         return id;
     }

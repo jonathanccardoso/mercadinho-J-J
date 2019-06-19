@@ -6,20 +6,24 @@ import java.util.*;
 
 public class VendaModel {
     private int id;
+    
     private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
     private LocalDate data;
     private boolean debito;
+    
 
     private ClienteModel cliente;
 
     public VendaModel() {
         super();
+        this.produtos = new ArrayList<>();
+        this.debito=false;
     }
 
     public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito) {        
         super();
-        this.produtos = new ArrayList();
+        this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
         this.data = data;
         this.debito = debito;
@@ -54,6 +58,7 @@ public class VendaModel {
     }
   
     public void adicionarProduto(ProdutoModel p){
+      
         this.produtos.add(p);
     }
     public void removerProduto(ProdutoModel p){
@@ -78,5 +83,13 @@ public class VendaModel {
 
     public boolean getDebito() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public Double calcularValorTotal(){
+        Double valorTotal=0.0;
+        
+        for(ProdutoModel p :produtos){
+            valorTotal+=p.getPreco()*p.getQuantidade();
+        }
+        return valorTotal;
     }
 }

@@ -29,6 +29,7 @@ public class MercadoView extends javax.swing.JFrame {
                 
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
+
         ProdutoModel p = new ProdutoModel("bom bril", 12, 5, 4.99);
         produtos.add(p);
         //ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
@@ -51,6 +52,7 @@ public class MercadoView extends javax.swing.JFrame {
         clientes.add(dados);*/
         
         //con.setClient(kadu); //ok
+
      
         initComponents();
     }
@@ -75,6 +77,8 @@ public class MercadoView extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         cadastrarCliente = new javax.swing.JMenuItem();
+        analiseDeDevedores = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -121,6 +125,17 @@ public class MercadoView extends javax.swing.JFrame {
             }
         });
         jMenu2.add(cadastrarCliente);
+
+        analiseDeDevedores.setText("Devedores");
+        analiseDeDevedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analiseDeDevedoresActionPerformed(evt);
+            }
+        });
+        jMenu2.add(analiseDeDevedores);
+
+        jMenuItem8.setText("Histórico");
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
@@ -234,6 +249,13 @@ public class MercadoView extends javax.swing.JFrame {
         area.add(h);
         h.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void analiseDeDevedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analiseDeDevedoresActionPerformed
+        // TODO add your handling code here:
+        AnalisarDevedores analisardevedores= new AnalisarDevedores();
+        area.add(analisardevedores);
+        analisardevedores.setVisible(true);
+    }//GEN-LAST:event_analiseDeDevedoresActionPerformed
     
     /**
      * @param args the command line arguments
@@ -274,7 +296,10 @@ public class MercadoView extends javax.swing.JFrame {
     public static ArrayList <ClienteModel> clientes;
     public static ArrayList <ProdutoModel> produtos;
     public static ArrayList <VendaModel> totalVendas;
+    public static ClienteModel clienteanalisado;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem analiseDeDevedores;
     protected static javax.swing.JDesktopPane area;
     private javax.swing.JMenuItem cadastrarCliente;
     private javax.swing.JMenu jMenu1;
@@ -291,5 +316,6 @@ public class MercadoView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

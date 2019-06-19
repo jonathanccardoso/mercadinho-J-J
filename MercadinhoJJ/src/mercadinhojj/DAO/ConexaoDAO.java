@@ -29,13 +29,9 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
-    //private String url = "jdbc:postgresql://wawmbiizuephkm:97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be@ec2-23-23-228-132.compute-1.amazonaws.com:5432/d73vqh8jsme9la";
-    //private String usuario = "wawmbiizuephkm";
-    //private String senha = "97a1b7673d5c9db6ee0f0a30aca61a08eafad7f0ced24ae9f4d86898a92f98be";
-    
     private String url = "jdbc:postgresql://localhost:5432/mercado";
     private String usuario = "postgres";
-    private String senha = "postgres";
+    private String senha = "postgre";
     
     public ConexaoDAO() {
         try {
@@ -160,7 +156,7 @@ public class ConexaoDAO {
                         + "nome = '" + p.getNome() +"', "
                         + "quantidade = '" + p.getQuantidade() +"', "
                         + "preco = '" + p.getPreco()+"' "
-                    + "where produto.slote = '"+ p.getSlote() +"'"
+                    + "where produto.slote = '"+ p.getLote() +"'"
             );
         } catch(SQLException ex){
             System.out.println(ex);
@@ -171,7 +167,7 @@ public class ConexaoDAO {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
             resultSet = stm.executeQuery(
-                    "DELETE FROM venda WHERE produto.slote = '" + p.getSlote()+"'"
+                    "DELETE FROM venda WHERE produto.slote = '" + p.getLote()+"'"
             );
         } catch(SQLException ex){
             System.out.println(ex);
@@ -187,7 +183,7 @@ public class ConexaoDAO {
             pst.setString(1, i.getProduto());
             pst.setInt(2, i.getQuantidade());
             pst.setInt(3, v.getId());
-            pst.setInt(4, p.getSlote());
+            pst.setInt(4, p.getLote());
             pst.execute();
             return true;
         } catch (SQLException ex) {
@@ -208,8 +204,7 @@ public class ConexaoDAO {
     }*/
 
     public List listClientes(){
-        List<ClienteModel> clientes = new ArrayList<>();
-        ClienteModel cliente = new ClienteModel();
+        List<ClienteModel> clientes = new ArrayList<>();      
         
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
@@ -218,16 +213,8 @@ public class ConexaoDAO {
             //resultSet = stm.executeQuery("select * from cliente where cpf='"+c.getCPF()+"'");
             
             while(resultSet.next()){
-                
-                /*
-                model.addRow(new Object[] { 
-                   //retorna os dados da tabela do BD, cada campo e um coluna.
-                   resultSet.getString("tb03_id_pais"),
-                   resultSet.getString("tb03_nome"),
-                   resultSet.getString("tb03_continente")
-                }); 
-                */
-                
+                ClienteModel cliente = new ClienteModel();
+             
                 cliente.setNome(resultSet.getString("nome"));
                 cliente.setCPF(resultSet.getString("cpf"));
                 cliente.setEndereco(resultSet.getString("endereco"));
