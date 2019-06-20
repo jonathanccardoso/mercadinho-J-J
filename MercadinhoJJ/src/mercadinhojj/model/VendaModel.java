@@ -1,29 +1,32 @@
 package mercadinhojj.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.*;
-import mercadinhojj.exceptions.VendaInvalida;
 
 public class VendaModel {
     private int id;
     
     private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
-    private Date data;
-    private boolean fiado;
+    private LocalDate data;
+    private boolean debito;
+    
+
+    private ClienteModel cliente;
 
     public VendaModel() {
         super();
         this.produtos = new ArrayList<>();
-        this.fiado=false;
+        this.debito=false;
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean fiado) {        
+    public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito) {        
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
         this.data = data;
-        this.fiado = fiado;
+        this.debito = debito;
     }
 
     public ArrayList<ProdutoModel> getProdutos() {
@@ -38,20 +41,20 @@ public class VendaModel {
         this.valorTotal = valorTotal;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public boolean isFiado() {
-        return fiado;
+    public boolean isDebito() {
+        return debito;
     }
 
-    public void setFiado(boolean fiado) {
-        this.fiado = fiado;
+    public void setDebito(boolean debito) {
+        this.debito = debito;
     }
   
     public void adicionarProduto(ProdutoModel p){
@@ -78,7 +81,7 @@ public class VendaModel {
         this.id = id;
     }
 
-    public boolean getFiado() {
+    public boolean getDebito() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public Double calcularValorTotal(){

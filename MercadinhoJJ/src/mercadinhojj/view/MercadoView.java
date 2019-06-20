@@ -6,6 +6,8 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
+import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.model.VendaModel;
@@ -19,18 +21,36 @@ public class MercadoView extends javax.swing.JFrame {
     /**
      * Creates new form MercadoView2
      */
+
+    private ConexaoDAO con = new ConexaoDAO();
+    private ClienteModel cliente;
+    private ProdutoModel produto;
+
     public MercadoView() {
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
         totalVendas= new ArrayList<>();
-        ProdutoModel p= new ProdutoModel("bom bril", 12, 5, 4.99);
-        ClienteModel kadu= new ClienteModel("Kadu", "112.777.888-23","Rua de teste", 15);
-        kadu.setId(1);
-        ClienteModel j= new ClienteModel("Jhonatan", "112.777.888-23","Rua de teste IFR", 0);
-        produtos.add(p);
-        clientes.add(kadu);
-        clientes.add(j);
-       
+        ProdutoModel p = new ProdutoModel("bom bril", 12, 5, 4.99);
+        ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
+        //kadu.setId(1);
+        //ClienteModel j= new ClienteModel("Jhonatan", "112.777.888-23","Rua de teste IFR", 0);
+        //produtos.add(p);
+        //ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
+        //clientes.add(kadu);
+
+        List<ClienteModel> clientesx = con.listClientes();
+
+        for (ClienteModel obj: clientesx) {
+            clientes.add(obj);
+        }
+
+        List<ProdutoModel> produtosx = con.listProdutos();
+
+        for (ClienteModel obj: produtosx) {
+            produtos.add(obj);
+        }
+
+        //con.setClient(kadu); //ok
      
         initComponents();
     }
@@ -178,7 +198,12 @@ public class MercadoView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClienteInternalFrame cadcliente= new ClienteInternalFrame();
         area.add(cadcliente);
+        System.out.println("quero cadastrar");
+        //ClienteModel cadcliente = new ClienteModel();
+        //con.setClient(cadcliente);
+
         cadcliente.setVisible(true);
+        System.out.println("mostrar quero cadastrar");
     }//GEN-LAST:event_cadastrarClienteActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ProdutoModel;
+import mercadinhojj.DAO.ConexaoDAO;
 
 /**
  *
@@ -19,6 +20,9 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form ProdutoInternalFrame
      */
+
+    private ConexaoDAO con = new ConexaoDAO();
+
     public ProdutoInternalFrame() {
         initComponents();
     }
@@ -184,12 +188,14 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
     private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
         // TODO add your handling code here:
-        ProdutoModel p= new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
+        ProdutoModel p = new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
         produtos.add(p);
+        con.setProduto(p);
      
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
         Object[] dados={slotetxt.getText(),nometxt.getText(),precotxt.getText(),qtdtxt.getText()};
         dtmprodutos.addRow(dados);
+
         slotetxt.setText(" ");
         nometxt.setText(" ");
         precotxt.setText(" ");
@@ -203,6 +209,9 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
            produtos.remove(tabelaprodutos.getSelectedRow());
            DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
            dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
+
+           ProdutoModel p = new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
+           con.delProduto(p);
            
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum produto para realizar a ação");
