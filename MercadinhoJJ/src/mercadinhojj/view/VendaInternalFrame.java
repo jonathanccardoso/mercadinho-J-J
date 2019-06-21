@@ -29,8 +29,8 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
             ProdutoModel copiaProduto= new ProdutoModel();
             //foi necessario criar uma cópia para evitar problemas com referencia
             //criando a copia de cada produto para inserir num array temporario
-            copiaProduto.setSlote(p.getSlote());
-            copiaProduto.setId(p.getId());
+            copiaProduto.setLote(p.getLote());
+            //copiaProduto.setId(p.getId());
             copiaProduto.setNome(p.getNome());
             copiaProduto.setQuantidade(p.getQuantidade());
             copiaProduto.setPreco(p.getPreco());
@@ -99,7 +99,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         produtosMatriz = new Object[produtosTemp.size()][4];
 
         for(int i=0;i<produtosTemp.size();i++){
-            produtosMatriz[i][0]=produtosTemp.get(i).getSlote();
+            produtosMatriz[i][0]=produtosTemp.get(i).getLote();
             produtosMatriz[i][1]=produtosTemp.get(i).getNome();
             produtosMatriz[i][2]=produtosTemp.get(i).getPreco();
             produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();
@@ -250,7 +250,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         produtosMatriz = new Object[produtosTemp.size()][4];
         
         for (int i=0;i<produtosTemp.size();i++){
-            produtosMatriz[i][0]=produtosTemp.get(i).getSlote();
+            produtosMatriz[i][0]=produtosTemp.get(i).getLote();
             produtosMatriz[i][1]=produtosTemp.get(i).getNome();
             produtosMatriz[i][2]=produtosTemp.get(i).getPreco();
             produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();
@@ -268,7 +268,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private void updateCarrinho(){
         carrinhoMatriz= new Object[carrinho_de_compras.size()][4];
         for(int i=0;i<carrinho_de_compras.size();i++){
-            carrinhoMatriz[i][0]=carrinho_de_compras.get(i).getSlote();
+            carrinhoMatriz[i][0]=carrinho_de_compras.get(i).getLote();
             carrinhoMatriz[i][1]=carrinho_de_compras.get(i).getNome();
             carrinhoMatriz[i][2]=carrinho_de_compras.get(i).getPreco();
             carrinhoMatriz[i][3]=carrinho_de_compras.get(i).getQuantidade();
@@ -295,7 +295,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         if(i!=-1){
                //DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
                ProdutoModel p= new ProdutoModel();
-               p.setSlote(Integer.parseInt(produtosMatriz[i][0].toString()));
+               p.setLote(Integer.parseInt(produtosMatriz[i][0].toString()));
                p.setNome(produtosMatriz[i][1].toString());
                p.setPreco(Double.parseDouble(produtosMatriz[i][2].toString()));
                p.setQuantidade(Integer.parseInt(qtdtxt.getText()));
@@ -303,7 +303,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                boolean has=false;
                int index=-1;
                for(ProdutoModel pro: carrinho_de_compras){
-                   if(pro.getSlote()==p.getSlote()){
+                   if(pro.getLote()==p.getLote()){
                        has=true;
                        pro.setQuantidade(pro.getQuantidade()+Integer.parseInt(qtdtxt.getText()));
                      
@@ -315,7 +315,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                    carrinho_de_compras.add(p);
                }
                  for(ProdutoModel p2:produtosTemp){
-                           if(p2.getSlote()==Integer.parseInt(produtosMatriz[i][0].toString())){
+                           if(p2.getLote()==Integer.parseInt(produtosMatriz[i][0].toString())){
                                p2.setQuantidade(p2.getQuantidade()-Integer.parseInt(qtdtxt.getText()));
                            }
                        }
@@ -347,7 +347,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         if (row!=-1){
           //procurar o produto no estoque pelo ID para poder adicionar o q foi removido
             for(ProdutoModel produto:produtosTemp){
-                if(produto.getSlote()==Integer.parseInt(carrinhoMatriz[row][0].toString())){
+                if(produto.getLote()==Integer.parseInt(carrinhoMatriz[row][0].toString())){
                   produto.setQuantidade(produto.getQuantidade()+Integer.parseInt(carrinhoMatriz[row][3].toString()));
                   carrinho_de_compras.remove(row);
                   tabelacompra.remove(row);
@@ -380,9 +380,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         }
         //novaVenda.setData();setar a data aqui
         if(emDebito.isSelected()){
-            novaVenda.setFiado(true); 
+            novaVenda.setDebito(true); 
         }else{
-            novaVenda.setFiado(false);
+            novaVenda.setDebito(false);
         }
         JOptionPane.showConfirmDialog(null,emDebito.isSelected());
         totalVendas.add(novaVenda);

@@ -58,7 +58,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         Object produtosMatriz [][]= new Object[produtos.size()][4];
 
         for(int i=0;i<produtos.size();i++){
-            produtosMatriz[i][0]=produtos.get(i).getSlote();
+            produtosMatriz[i][0]=produtos.get(i).getLote();
             produtosMatriz[i][1]=produtos.get(i).getNome();
             produtosMatriz[i][2]=produtos.get(i).getPreco();
             produtosMatriz[i][3]=produtos.get(i).getQuantidade();
@@ -188,7 +188,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
     private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
         // TODO add your handling code here:
-        ProdutoModel p = new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
+        ProdutoModel p = new ProdutoModel(Integer.parseInt(slotetxt.getText()),nometxt.getText(), Integer.parseInt(qtdtxt.getText()), Double.parseDouble(precotxt.getText()));
         produtos.add(p);
         con.setProduto(p);
      
@@ -210,7 +210,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
            DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
            dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
 
-           ProdutoModel p = new ProdutoModel(nometxt.getText(),Integer.parseInt(slotetxt.getText()), Integer.parseInt(qtdtxt.getText()),Double.parseDouble(precotxt.getText()));
+           ProdutoModel p = new ProdutoModel(Integer.parseInt(slotetxt.getText()),nometxt.getText(), Integer.parseInt(qtdtxt.getText()), Double.parseDouble(precotxt.getText()));
            con.delProduto(p);
            
         }else{
@@ -225,28 +225,30 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         nometxt.setText(produtos.get(linha).getNome());
         precotxt.setText(Double.toString(produtos.get(linha).getPreco()));
         qtdtxt.setText(Integer.toString(produtos.get(linha).getQuantidade()));
-        slotetxt.setText(Integer.toString(produtos.get(linha).getSlote()));
+        slotetxt.setText(Integer.toString(produtos.get(linha).getLote()));
         
         
     }//GEN-LAST:event_tabelaprodutosMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //atualizar produto
+                
         // TODO add your handling code here:
         String nome=nometxt.getText();
         int slote=Integer.parseInt(slotetxt.getText());
         int qtd=Integer.parseInt(qtdtxt.getText());
         double preco=Double.parseDouble(precotxt.getText());
-       
-        ProdutoModel novoCliente= new ProdutoModel(nome, slote, qtd, preco);
-        int linha=tabelaprodutos.getSelectedRow();
+        ProdutoModel novoCliente = new ProdutoModel(slote, nome, qtd, preco);
+        con.updateProduto(novoCliente);
+        
+        int linha = tabelaprodutos.getSelectedRow();
         produtos.remove(tabelaprodutos.getSelectedRow());
         produtos.add(tabelaprodutos.getSelectedRow(),novoCliente);
-        
-        
-         tabelaprodutos.setValueAt(slotetxt.getText(), tabelaprodutos.getSelectedRow(),0);
-         tabelaprodutos.setValueAt(nometxt.getText(), tabelaprodutos.getSelectedRow(),1);
-         tabelaprodutos.setValueAt(precotxt.getText(), tabelaprodutos.getSelectedRow(),2);
-         tabelaprodutos.setValueAt(qtdtxt.getText(), tabelaprodutos.getSelectedRow(),3);
+                
+        tabelaprodutos.setValueAt(slotetxt.getText(), tabelaprodutos.getSelectedRow(),0);
+        tabelaprodutos.setValueAt(nometxt.getText(), tabelaprodutos.getSelectedRow(),1);
+        tabelaprodutos.setValueAt(precotxt.getText(), tabelaprodutos.getSelectedRow(),2);
+        tabelaprodutos.setValueAt(qtdtxt.getText(), tabelaprodutos.getSelectedRow(),3);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private ArrayList <ProdutoModel> produtos= MercadoView.produtos;

@@ -31,7 +31,7 @@ public class ConexaoDAO {
 
     private String url = "jdbc:postgresql://localhost:5432/mercado";
     private String usuario = "postgres";
-    private String senha = "postgre";
+    private String senha = "postgres";
     
     public ConexaoDAO() {
         try {
@@ -141,7 +141,7 @@ public class ConexaoDAO {
                         + "default,"
                         + "'"+ p.getNome() +"', "
                         + "'"+ p.getQuantidade() +"', "
-                        + "'"+ p.getPreco() + ");"
+                        + "'"+ p.getPreco() + "');"
             );
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -155,8 +155,8 @@ public class ConexaoDAO {
                     "update produto set "
                         + "nome = '" + p.getNome() +"', "
                         + "quantidade = '" + p.getQuantidade() +"', "
-                        + "preco = '" + p.getPreco()+"' "
-                    + "where produto.slote = '"+ p.getLote() +"'"
+                        + "preco = '" + p.getPreco() +"' "
+                    + "where produto.lote = '"+ p.getLote() +"'"
             );
         } catch(SQLException ex){
             System.out.println(ex);
@@ -167,7 +167,7 @@ public class ConexaoDAO {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
             resultSet = stm.executeQuery(
-                    "DELETE FROM venda WHERE produto.slote = '" + p.getLote()+"'"
+                    "DELETE FROM produto WHERE produto.lote = '" + p.getLote()+"'"
             );
         } catch(SQLException ex){
             System.out.println(ex);
@@ -234,15 +234,15 @@ public class ConexaoDAO {
         
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
-            resultSet = stm.executeQuery("select * from produtos");
+            resultSet = stm.executeQuery("select * from produto");
             
             while(resultSet.next()){
                 ProdutoModel produto = new ProdutoModel();
                 
+                produto.setLote(resultSet.getInt("lote"));
                 produto.setNome(resultSet.getString("nome"));
-                produto.setLote(resultSet.getString("lote"));
-                produto.setQuantidade(resultSet.getString("quantidade"));
-                produto.setPreco(resultSet.getDouble("preco"));
+                produto.setQuantidade(resultSet.getInt("quantidade"));                
+                produto.setPreco(resultSet.getDouble("preco"));                
                 
                 produtos.add(produto);
             }

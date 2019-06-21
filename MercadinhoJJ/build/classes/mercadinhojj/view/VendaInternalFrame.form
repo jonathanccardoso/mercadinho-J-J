@@ -179,7 +179,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="produtosMatriz = new Object[produtosTemp.size()][4];&#xa;&#xa;for(int i=0;i&lt;produtosTemp.size();i++){&#xa;    produtosMatriz[i][0]=produtosTemp.get(i).getSlote();&#xa;    produtosMatriz[i][1]=produtosTemp.get(i).getNome();&#xa;    produtosMatriz[i][2]=produtosTemp.get(i).getPreco();&#xa;    produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="produtosMatriz = new Object[produtosTemp.size()][4];&#xa;&#xa;for(int i=0;i&lt;produtosTemp.size();i++){&#xa;    produtosMatriz[i][0]=produtosTemp.get(i).getLote();&#xa;    produtosMatriz[i][1]=produtosTemp.get(i).getNome();&#xa;    produtosMatriz[i][2]=produtosTemp.get(i).getPreco();&#xa;    produtosMatriz[i][3]=produtosTemp.get(i).getQuantidade();&#xa;}"/>
           </AuxValues>
         </Component>
       </SubComponents>

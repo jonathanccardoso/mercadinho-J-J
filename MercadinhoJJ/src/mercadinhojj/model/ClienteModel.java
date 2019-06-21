@@ -8,6 +8,8 @@ public class ClienteModel {
     private String endereco;
     private String CPF;
     private double divida;
+    
+    private int id; // lemnbrar de retirar depois
 
     private ArrayList<VendaModel> historico ;
 
@@ -67,5 +69,13 @@ public class ClienteModel {
     }
     public void inserirCompra(VendaModel c){
        this.historico.add(c);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

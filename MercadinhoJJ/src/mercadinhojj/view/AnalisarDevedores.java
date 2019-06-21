@@ -50,14 +50,14 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
         }
         matriz_devedores= new Object[devedores.size()][3];
         for (int i =0;i<devedores.size();i++){
-            matriz_devedores[i][0]=devedores.get(i).getId();
+            matriz_devedores[i][0]=devedores.get(i).getCPF();
             matriz_devedores[i][1]=devedores.get(i).getNome();
             matriz_devedores[i][2]=devedores.get(i).getDivida();
         }
         tabeladevedores.setModel(new javax.swing.table.DefaultTableModel(
             matriz_devedores,
             new String [] {
-                "ID","Cliente", "Divida(R$)"
+                "CPF","Cliente", "Divida(R$)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -85,6 +85,11 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Pagar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(0, 153, 0));
         jButton3.setText("Salvar Alterações");
@@ -166,6 +171,25 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
          area.add(ahc);
          ahc.setVisible(true);
     }//GEN-LAST:event_detalharDevedorActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        // Pagar de toda a divida!
+        
+        /*
+        String nome=nometxt.getText();
+        String endereco=enderecotxt.getText();
+        double divida=Double.parseDouble(dividatxt.getText());
+        String cpf= cpftxt.getText();
+        ClienteModel novoCliente= new ClienteModel(cpf, nome, endereco, 00.0);
+        con.updateCliente(novoCliente);    
+
+        int linha=tabelaclientes.getSelectedRow();
+        clientes.remove(tabelaclientes.getSelectedRow());
+        clientes.add(tabelaclientes.getSelectedRow(),novoCliente);
+        */
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
     private JDesktopPane area=mercadinhojj.view.MercadoView.area;
     private ArrayList <ClienteModel> clientes=mercadinhojj.view.MercadoView.clientes;
     private ArrayList <ClienteModel> devedores= new ArrayList <>();

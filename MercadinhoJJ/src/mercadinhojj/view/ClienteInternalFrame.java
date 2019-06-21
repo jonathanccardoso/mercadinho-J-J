@@ -275,7 +275,7 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         double divida=Double.parseDouble(dividatxt.getText());
         String cpf= cpftxt.getText();
         ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
-        con.updateCliente(novoCliente);        
+        con.updateCliente(novoCliente);    
 
         int linha=tabelaclientes.getSelectedRow();
         clientes.remove(tabelaclientes.getSelectedRow());

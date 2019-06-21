@@ -25,7 +25,7 @@ public class LucroDebitoInternal extends javax.swing.JInternalFrame {
         lucroDiarioComDebito=0.0;
        
        for(VendaModel v:totalVendas){
-            if(v.isFiado()){
+            if(v.isDebito()){
                 System.out.println(v.calcularValorTotal());
                 lucroDiarioComDebito+=v.calcularValorTotal();
             }
