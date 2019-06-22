@@ -5,15 +5,13 @@ import java.util.Date;
 import java.util.*;
 
 public class VendaModel {
+
+    private ArrayList<ProdutoModel> produtos; //tem que remover associações, essa associação se tem em item_venda
     private int id;
-    
-    private ArrayList<ProdutoModel> produtos;
     private double valorTotal;
     private LocalDate data;
     private boolean debito;
-    
-
-    private ClienteModel cliente;
+    private ClienteModel cliente; //há venda só pertence a um crientess
 
     public VendaModel() {
         super();
@@ -21,16 +19,25 @@ public class VendaModel {
         this.debito=false;
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito) {        
+    public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito, ClienteModel cliente) {
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
         this.data = data;
         this.debito = debito;
+        this.cliente = cliente; // filtra pelo CPF
     }
 
     public ArrayList<ProdutoModel> getProdutos() {
         return produtos;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
     }
 
     public double getValorTotal() {
@@ -82,7 +89,7 @@ public class VendaModel {
     }
 
     public boolean getDebito() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     public Double calcularValorTotal(){
         Double valorTotal=0.0;
