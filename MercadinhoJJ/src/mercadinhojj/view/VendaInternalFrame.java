@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.model.VendaModel;
+import mercadinhojj.DAO.ConexaoDAO;
 
 /**
  *
@@ -20,7 +21,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VendaInternalFrame
-     */
+     */   
+    private ConexaoDAO con = new ConexaoDAO();
+
      private ArrayList<ProdutoModel> copytoAL(ArrayList<ProdutoModel>a){
         //zerando o que vai receber a copia
         ArrayList<ProdutoModel>b= new ArrayList<>();
@@ -42,6 +45,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     }
     public VendaInternalFrame() {
         produtosTemp=copytoAL(produtos);
+               
         
         
         initComponents();
@@ -367,10 +371,12 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
     private void FinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarCompraActionPerformed
         // TODO add your handling code here:
+       /*id da compra temporario*/
         int tempId=0;
         for(VendaModel v: totalVendas){
             tempId++;
         }
+        ////fim id temp
         
         VendaModel novaVenda= new VendaModel();
         novaVenda.setId(tempId);
@@ -384,12 +390,18 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         }else{
             novaVenda.setDebito(false);
         }
-        JOptionPane.showConfirmDialog(null,emDebito.isSelected());
+        
         totalVendas.add(novaVenda);
+        //
+        ClienteModel cv= new ClienteModel();
         for(ClienteModel c:clientes){
-            clientes.get(id_cliente).inserirCompra(novaVenda);
+           String cpfcliente= clientes.get(id_cliente).getCPF();
+           cv=c;
             
         }
+        con.setVenda(novaVenda,cv);
+        
+        
         JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
         
     }//GEN-LAST:event_FinalizarCompraActionPerformed

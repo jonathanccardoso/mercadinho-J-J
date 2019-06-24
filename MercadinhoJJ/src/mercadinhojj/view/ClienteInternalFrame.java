@@ -221,11 +221,22 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         try {
-         if (nometxt.getText().equals(null) || cpftxt.getText().equals(null) || dividatxt.getText().equals(null)
-                 || enderecotxt.getText().equals(null)){
+         if (nometxt.getText().equals(null) ||nometxt.getText().equals("") 
+                 || cpftxt.getText().equals(null) || cpftxt.getText().equals("") 
+                 ||dividatxt.getText().equals(null)||dividatxt.getText().equals("") ||
+                 nometxt.getText().equals(null) || enderecotxt.getText().equals(null)){
                 throw new FormularioIncompleto("");
             }
-         
+          String cpf=cpftxt.getText();
+          cpf=cpf.replace(".","");
+          cpf=cpf.replace("-","");
+          for (int i=0;i<cpf.length();i++){
+              if(Character.getNumericValue(cpf.charAt(i))==-1){
+                  throw new FormularioIncompleto("O campo CPF está incompleto");
+              }
+          }
+          
+          
         String nome=nometxt.getText();
         for (int w=0;w<nome.length();w++){
             int  c=Character.getNumericValue(nome.charAt(w));
@@ -236,8 +247,13 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
             
         }
         String endereco=enderecotxt.getText();
+        if (endereco.equals("") ||endereco.equals(null)){
+            throw new FormularioIncompleto("O campo 'endereço' está incompleto");
+        }
+           
         double divida=Double.parseDouble(dividatxt.getText());
-        String cpf= cpftxt.getText();
+        System.out.println(cpftxt.getText());
+        cpf= cpftxt.getText(); 
         ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
         clientes.add(novoCliente);
         con.setClient(novoCliente);
@@ -255,9 +271,13 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
          
          //realocar aqui
         }catch (FormularioIncompleto e){
-            JOptionPane.showMessageDialog(null, "Impossivel concluir a ação pois possui algum campo vazio!");
+            JOptionPane.showMessageDialog(null, "Impossivel concluir a ação pois possui algum campo vazio ou incompleto!");
         }catch (NomeUsuarioInvalido nui){
             JOptionPane.showMessageDialog (null,nui);
+            
+        }catch (NumberFormatException ime){
+            JOptionPane.showMessageDialog(null,"O campo de divida não aceita Caracteres !");
+        
         }
             
         

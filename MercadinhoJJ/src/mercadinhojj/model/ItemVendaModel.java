@@ -5,6 +5,9 @@ public class ItemVendaModel {
     private int quantidade;
     private VendaModel venda_fk;
     private ProdutoModel produto_fk;
+
+    public ItemVendaModel() {
+    }
  
     public ItemVendaModel(int quantidade, VendaModel venda_fk, ProdutoModel produto_fk) {
         this.quantidade = quantidade;
@@ -25,5 +28,12 @@ public class ItemVendaModel {
         return this.produto_fk;
     }
     
+    public void setProduto(ProdutoModel p){
+        this.produto_fk=p;
+    }
+    public void setVenda(VendaModel v){
+        this.venda_fk=v;
+    }
+
 
 }

@@ -289,6 +289,30 @@ public class ConexaoDAO {
         return vendas;        
     }
 
+    public List listItemVenda(){
+        List<ItemVendaModel> ItemVendas = new ArrayList<>();      
+        
+        try {
+            stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
+            resultSet = stm.executeQuery("select * from item_venda");
+            
+            while(resultSet.next()){
+                ItemVendaModel ItemVenda = new ItemVendaModel();
+                
+                ItemVenda.setQuantidade(resultSet.getInt("quantidade"));
+                ItemVenda.setVenda((VendaModel)resultSet.getObject("fk_Venda_id_venda"));
+                ItemVenda.setProduto((ProdutoModel)resultSet.getObject("fk_Produto_lote_produto"));
+                
+                
+                ItemVendas.add(ItemVenda);
+            }
+        } catch(SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return ItemVendas;        
+    }
+    
     public boolean executeSql(String sql) {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
