@@ -18,6 +18,12 @@ public class ItemVendaModel {
     
     public Integer getQuantidade() {
         return quantidade;
+    
     }
+    
+    public ProdutoModel getProduto(){
+        return this.produto_fk;
+    }
+    
 
 }

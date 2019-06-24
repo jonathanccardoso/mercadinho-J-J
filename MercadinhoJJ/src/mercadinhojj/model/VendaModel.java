@@ -9,7 +9,7 @@ public class VendaModel {
     private ArrayList<ProdutoModel> produtos; //tem que remover associações, essa associação se tem em item_venda
     private int id;
     private double valorTotal;
-    private LocalDate data;
+    private Date data;
     private boolean debito;
     private ClienteModel cliente; //há venda só pertence a um crientess
 
@@ -19,7 +19,7 @@ public class VendaModel {
         this.debito=false;
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito, ClienteModel cliente) {
+    public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean debito, ClienteModel cliente) {
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
@@ -48,11 +48,11 @@ public class VendaModel {
         this.valorTotal = valorTotal;
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

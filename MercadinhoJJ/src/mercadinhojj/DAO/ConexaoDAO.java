@@ -31,7 +31,7 @@ public class ConexaoDAO {
 
     private String url = "jdbc:postgresql://localhost:5432/mercado";
     private String usuario = "postgres";
-    private String senha = "postgres";
+    private String senha = "postgre";
     
     public ConexaoDAO() {
         try {
@@ -183,7 +183,7 @@ public class ConexaoDAO {
                         + "'"+ i.getQuantidade() +"', "
                         + "'"+ v.getId() +"', "
                         + "'"+ p.getLote() + "');"
-            );s
+            );
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -278,7 +278,7 @@ public class ConexaoDAO {
                 venda.setData(resultSet.getDate("data_venda"));
                 venda.setDebito(resultSet.getBoolean("debito"));
                 //venda.setCPF(resultSet.getString("preco"));
-                venda.setCliente(resultSet.getString("cpf_cliente"));
+                //venda.setCliente(resultSet.getString("cpf_cliente"));
                 
                 vendas.add(venda);
             }
