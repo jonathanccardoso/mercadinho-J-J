@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,12 +94,15 @@ public class ConexaoDAO {
     
     public void setVenda(VendaModel v, ClienteModel c) {
         try {
+           
+            SimpleDateFormat formatadorDeData = new SimpleDateFormat("dd/MM/yyyy");
+
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
             resultSet = stm.executeQuery(
                     "insert into venda VALUES ( "
                         + "default,"
                         + "'"+ v.getValorTotal() +"', "
-                        + "'"+ v.getData() +"', "
+                        + "'"+ formatadorDeData.format(v.getData()) +"', "
                         + "'"+ v.getDebito() + "',"
                         + "'"+ c.getCPF() + "');"
             );

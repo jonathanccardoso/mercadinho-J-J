@@ -32,10 +32,9 @@ public class MercadoView extends javax.swing.JFrame {
         totalVendas= new ArrayList<>();
         
         ProdutoModel p = new ProdutoModel(12, "bom bril", 5, 4.99);
-        ClienteModel j= new ClienteModel("Jhonatan", "112.777.888-23","Rua de teste IFR", 0);
-        produtos.add(p);
-        ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
-        clientes.add(kadu);
+       
+        
+       
         VendaModel testevenda= new VendaModel();
         List<ClienteModel> clientesx = con.listClientes();
 
@@ -48,7 +47,7 @@ public class MercadoView extends javax.swing.JFrame {
         for (ProdutoModel obj: produtosx) {
             produtos.add(obj);
         }
-        List<VendaModel>vendasx = con.listProdutos();
+        List<VendaModel>vendasx = con.listVendas();
 
         for (VendaModel obj: vendasx) {
             totalVendas.add(obj);

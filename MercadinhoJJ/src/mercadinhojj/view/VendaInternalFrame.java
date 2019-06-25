@@ -234,9 +234,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(33, 33, 33)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(38, 38, 38)
                         .addComponent(RemoverProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(FinalizarCompra)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4))
@@ -399,6 +399,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
            cv=c;
             
         }
+        System.out.println(totalVendas.get(totalVendas.size()-1).getId());
         con.setVenda(novaVenda,cv);
         
         

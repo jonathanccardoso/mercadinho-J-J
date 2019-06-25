@@ -1,5 +1,6 @@
 package mercadinhojj.model;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.*;
@@ -17,13 +18,17 @@ public class VendaModel {
         super();
         this.produtos = new ArrayList<>();
         this.debito=false;
+        this.data = new Date();
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, Date data, boolean debito, ClienteModel cliente) {
+    public VendaModel(boolean debito, ClienteModel cliente) {
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
-        this.data = data;
+        //pegar data atual
+        this.data = new Date();
+       
+         //------------------
         this.debito = debito;
         this.cliente = cliente; // filtra pelo CPF
     }
@@ -89,7 +94,7 @@ public class VendaModel {
     }
 
     public boolean getDebito() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return this.debito;
     }
     public Double calcularValorTotal(){
         Double valorTotal=0.0;
