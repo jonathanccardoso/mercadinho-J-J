@@ -6,10 +6,16 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.exceptions.CPFRepetido;
+import mercadinhojj.exceptions.FormularioIncompleto;
+import mercadinhojj.exceptions.NomeUsuarioInvalido;
 import mercadinhojj.model.ClienteModel;
 import static mercadinhojj.view.MercadoView.clientes;
 
@@ -22,9 +28,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form ClienteInternalFrame
      */
-    
+
     private ConexaoDAO con = new ConexaoDAO();
-    
+
     public ClienteInternalFrame() {
         ArrayList<ClienteModel>clientes;
         initComponents();
@@ -80,7 +86,7 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Divida");
 
-        jLabel4.setText("Clientes");
+        jLabel4.setText("Gerenciar Clientes");
 
         clientes=MercadoView.clientes;
         arrayClientes=new Object[clientes.size()][4];
@@ -144,16 +150,6 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(269, 269, 269)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
@@ -168,9 +164,16 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                                 .addGap(60, 60, 60)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cpftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dividatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                                .addComponent(cpftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dividatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,18 +189,18 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enderecotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(17, 17, 17)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(dividatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Salvar)
                     .addComponent(atualizar)
-                    .addComponent(Salvar))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(deletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -217,13 +220,50 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         // TODO add your handling code here:
+        
+        try {
+         if (nometxt.getText().equals(null) ||nometxt.getText().equals("") 
+                 || cpftxt.getText().equals(null) || cpftxt.getText().equals("") 
+                 ||dividatxt.getText().equals(null)||dividatxt.getText().equals("") ||
+                 nometxt.getText().equals(null) || enderecotxt.getText().equals(null)){
+                throw new FormularioIncompleto("");
+            }
+          String cpf=cpftxt.getText();
+          cpf=cpf.replace(".","");
+          cpf=cpf.replace("-","");
+          for (int i=0;i<cpf.length();i++){
+              if(Character.getNumericValue(cpf.charAt(i))==-1){
+                  throw new FormularioIncompleto("O campo CPF está incompleto");
+              }
+          }
+          for(ClienteModel c:clientes){
+              if(c.getCPF().equals(cpftxt.getText())){
+                  throw new CPFRepetido("O CPF ja esta cadastrado");
+              }
+          }
+          
+          
         String nome=nometxt.getText();
+        for (int w=0;w<nome.length();w++){
+            int  c=Character.getNumericValue(nome.charAt(w));
+            if(c>=0 && c <=9){
+                NomeUsuarioInvalido NumeroEncontrado=  new NomeUsuarioInvalido("O nome do usuario não pode conter numeros");
+                throw  NumeroEncontrado;
+            }
+            
+        }
         String endereco=enderecotxt.getText();
+        if (endereco.equals("") ||endereco.equals(null)){
+            throw new FormularioIncompleto("O campo 'endereço' está incompleto");
+        }
+           
         double divida=Double.parseDouble(dividatxt.getText());
-        String cpf= cpftxt.getText();
+        System.out.println(cpftxt.getText());
+        cpf= cpftxt.getText(); 
         ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
         clientes.add(novoCliente);
-        con.setClient(novoCliente);        
+        con.setClient(novoCliente);
+        
         
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
         Object[] dados={nometxt.getText(),cpftxt.getText(),enderecotxt.getText(),dividatxt.getText()};
@@ -234,25 +274,42 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         cpftxt.setText("");
         dividatxt.setText("");
         enderecotxt.setText("");
+         
+         //realocar aqui
+        }catch (FormularioIncompleto e){
+            JOptionPane.showMessageDialog(null, "Impossivel concluir a ação pois possui algum campo vazio ou incompleto!");
+        }catch (NomeUsuarioInvalido nui){
+            JOptionPane.showMessageDialog (null,nui);
+            
+        }catch (NumberFormatException ime){
+            JOptionPane.showMessageDialog(null,"O campo de divida não aceita Caracteres !");
+        
+        } catch (CPFRepetido ex) {
+              JOptionPane.showMessageDialog(null,"O CPF já está cadastrado");
+        }
+            
+        
         
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarActionPerformed
         // TODO add your handling code here:
        
-        int s = tabelaclientes.getSelectedRow();        
+        int s=tabelaclientes.getSelectedRow();
+        
 
         if(tabelaclientes.getSelectedRow()!=-1){
             clientes.remove(s);
-            DefaultTableModel dtmprodutos = (DefaultTableModel)tabelaclientes.getModel();
+            DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaclientes.getModel();
             dtmprodutos.removeRow(tabelaclientes.getSelectedRow());
             
             String nome=nometxt.getText();
             String endereco=enderecotxt.getText();
             double divida=Double.parseDouble(dividatxt.getText());
             String cpf= cpftxt.getText();
-            ClienteModel delCliente= new ClienteModel(cpf,nome,endereco,divida);
+            ClienteModel delCliente = new ClienteModel(cpf,nome,endereco,divida);
             con.delCliente(delCliente);
+            
         }else{
             JOptionPane.showMessageDialog(null,"Selecione algum cliente para completar a açao!");
         }
@@ -278,9 +335,9 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         double divida=Double.parseDouble(dividatxt.getText());
         String cpf= cpftxt.getText();
         ClienteModel novoCliente= new ClienteModel(cpf,nome,endereco,divida);
-        con.updateCliente(novoCliente);
-        
-        int linha = tabelaclientes.getSelectedRow();
+        con.updateCliente(novoCliente);    
+
+        int linha=tabelaclientes.getSelectedRow();
         clientes.remove(tabelaclientes.getSelectedRow());
         clientes.add(tabelaclientes.getSelectedRow(),novoCliente);
         

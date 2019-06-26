@@ -18,12 +18,18 @@ O sistema a ser desenvolvido terá as seguintes funcionalidades
 
 - Cadastro de clientes
 - Remoção de clientes
+- Cadastro de Fornecedores
+- Remoção de Fornecedores
 - Cadastro de compras
+- Remoção de compras
 - Histórico de compras
 - Processar venda
-- Definir tipo de venda(Debito ou à vista)
+- Definir tipo de venda
+- Remoção de vendas
 - Histórico de vendas
 - Verificação de dívida com o mercado
+- O dono do mercado poderá ver os clientes que o devem
+- Ver total de crédito.
 - Ver total de débito por cliente.
 
 ## Autores:

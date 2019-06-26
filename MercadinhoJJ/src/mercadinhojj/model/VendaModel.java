@@ -1,36 +1,48 @@
 package mercadinhojj.model;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.*;
 
 public class VendaModel {
-    private int id;
-    
-    private ArrayList<ProdutoModel> produtos;
-    private double valorTotal;
-    private LocalDate data;
-    private boolean debito;
-    
 
-    private ClienteModel cliente;
+    private ArrayList<ProdutoModel> produtos; //tem que remover associações, essa associação se tem em item_venda
+    private int id;
+    private double valorTotal;
+    private Date data;
+    private boolean debito;
+    private String cliente; //há venda só pertence a um crientess
 
     public VendaModel() {
         super();
         this.produtos = new ArrayList<>();
         this.debito=false;
+        this.data = new Date();
     }
 
-    public VendaModel(ProdutoModel[] produtos, double valorTotal, LocalDate data, boolean debito) {        
+    public VendaModel(boolean debito, String cliente) {
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
-        this.data = data;
+        //pegar data atual
+        this.data = new Date();
+       
+         //------------------
         this.debito = debito;
+        this.cliente = cliente; // filtra pelo CPF
     }
 
     public ArrayList<ProdutoModel> getProdutos() {
         return produtos;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public double getValorTotal() {
@@ -41,11 +53,11 @@ public class VendaModel {
         this.valorTotal = valorTotal;
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -82,7 +94,7 @@ public class VendaModel {
     }
 
     public boolean getDebito() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.debito;
     }
     public Double calcularValorTotal(){
         Double valorTotal=0.0;
@@ -90,6 +102,7 @@ public class VendaModel {
         for(ProdutoModel p :produtos){
             valorTotal+=p.getPreco()*p.getQuantidade();
         }
-        return valorTotal;
+        
+        return this.valorTotal=valorTotal;
     }
 }

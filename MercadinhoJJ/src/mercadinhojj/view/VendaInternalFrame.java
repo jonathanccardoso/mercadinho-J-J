@@ -6,12 +6,16 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import mercadinhojj.exceptions.FormularioIncompleto;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.model.VendaModel;
+import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.exceptions.VendaInvalida;
 
 /**
  *
@@ -21,7 +25,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VendaInternalFrame
-     */
+     */   
+    private ConexaoDAO con = new ConexaoDAO();
+
      private ArrayList<ProdutoModel> copytoAL(ArrayList<ProdutoModel>a){
         //zerando o que vai receber a copia
         ArrayList<ProdutoModel>b= new ArrayList<>();
@@ -43,6 +49,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     }
     public VendaInternalFrame() {
         produtosTemp=copytoAL(produtos);
+               
         
         
         initComponents();
@@ -74,7 +81,6 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         emDebito = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -109,7 +115,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
             produtosMatriz,
             new String [] {
-                "slote", "Produto", "Preço", "Qtd_disponivel"
+                "Lote", "Produto", "Preço", "Qtd_disponivel"
             }
         ));
         jScrollPane1.setViewportView(tabelaprodutos);
@@ -128,12 +134,12 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Produto", "Preço", "Qtd_disponivel"
+                "Lote", "Produto", "Preço", "Quantidade"
             }
         ));
         jScrollPane2.setViewportView(tabelacompra);
 
-        RemoverProduto.setText("remover");
+        RemoverProduto.setText("Remover");
         RemoverProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RemoverProdutoActionPerformed(evt);
@@ -152,10 +158,13 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         });
 
         jButton4.setText("Esvaziar Compra");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         emDebito.setText("Débito");
-
-        jLabel6.setText("Data:10/10/1998");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,31 +200,28 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                                     .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(qtdtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(adicionarProduto)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(adicionarProduto)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(271, 271, 271)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addComponent(jLabel5)))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(clientesList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(emDebito)
                         .addGap(19, 19, 19)))
                 .addComponent(jLabel3)
@@ -237,9 +243,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(33, 33, 33)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(38, 38, 38)
                         .addComponent(RemoverProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(FinalizarCompra)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4))
@@ -298,16 +304,10 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarProdutoActionPerformed
         // TODO add your handling code here:
         int i=tabelaprodutos.getSelectedRow();
-        try{
+        try {
+        if(i!=-1){
             
-            //captando Exception de formulário
-            if(qtdtxt.getText().equals(null) || qtdtxt.getText().equals("")){
-
-                throw new FormularioIncompleto("O formulário de quantidade está vazio");
-            }
-            //realocar aqui
             
-            if(i!=-1){
                //DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
                ProdutoModel p= new ProdutoModel();
                p.setLote(Integer.parseInt(produtosMatriz[i][0].toString()));
@@ -350,14 +350,11 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(null,"Nenhum item selecionado");
         }
+        }catch(NumberFormatException number){
+                JOptionPane.showMessageDialog(null,"Quantidade deve ser dado em valor inteiro");
+                qtdtxt.setText("");
+                }
      
-        }catch(FormularioIncompleto e){
-            JOptionPane.showMessageDialog(null, "Há algum campo incompleto");
-        }catch(NumberFormatException e){
-            JOptionPane.showConfirmDialog(null, "O campo de quantidade só suporta números");
-            qtdtxt.setText(null);
-        }
-        
         
         
     }//GEN-LAST:event_adicionarProdutoActionPerformed
@@ -371,6 +368,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
             for(ProdutoModel produto:produtosTemp){
                 if(produto.getLote()==Integer.parseInt(carrinhoMatriz[row][0].toString())){
                   produto.setQuantidade(produto.getQuantidade()+Integer.parseInt(carrinhoMatriz[row][3].toString()));
+                  JOptionPane.showMessageDialog(null, row);
                   carrinho_de_compras.remove(row);
                   tabelacompra.remove(row);
                   break;
@@ -389,32 +387,76 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
     private void FinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarCompraActionPerformed
         // TODO add your handling code here:
-        int tempId=0;
-        for(VendaModel v: totalVendas){
-            tempId++;
-        }
-        
+       /*id da compra temporario*/
+      try{
         VendaModel novaVenda= new VendaModel();
-        novaVenda.setId(tempId);
+        if(carrinho_de_compras.size()==0){
+           
+                throw new VendaInvalida(title);
+            
+        }
         for (ProdutoModel p:carrinho_de_compras){
             System.out.println(p.getNome());
             novaVenda.adicionarProduto(p);
         }
         //novaVenda.setData();setar a data aqui
-        if(emDebito.isSelected()){
-            novaVenda.setDebito(true); 
+       
+        novaVenda.setValorTotal(novaVenda.calcularValorTotal());
+        JOptionPane.showMessageDialog(null, novaVenda.calcularValorTotal() );
+        totalVendas.add(novaVenda);
+        //
+        ClienteModel cv= new ClienteModel();
+        for(ClienteModel c:clientes){
+           String cpfcliente= clientes.get(id_cliente).getCPF();
+           if(c.getCPF().equals(cpfcliente)){
+               cv=c;
+           }
+           
+            
+        }
+         if(emDebito.isSelected()){
+            novaVenda.setDebito(true);
+            cv.setDivida(cv.getDivida()+novaVenda.calcularValorTotal());
+            con.updateCliente(cv);
         }else{
             novaVenda.setDebito(false);
         }
-        JOptionPane.showConfirmDialog(null,emDebito.isSelected());
-        totalVendas.add(novaVenda);
-        for(ClienteModel c:clientes){
-            clientes.get(id_cliente).inserirCompra(novaVenda);
-            
-        }
-        JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
+        System.out.println(totalVendas.get(totalVendas.size()-1).getId());
         
+        con.setVenda(novaVenda,cv);
+        List<VendaModel> v= con.listVendas();
+        int fkv =v.get(v.size()-1).getId();
+        System.out.println(fkv);
+        
+        //parte para criar item_vendas
+        for(ProdutoModel p:novaVenda.getProdutos()){
+                    
+                con.setItemVenda(fkv,novaVenda,p);
+        }
+        
+        
+        JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
+        carrinho_de_compras= new ArrayList<>();
+        updateCarrinho();
+        } catch (VendaInvalida ex) {
+             JOptionPane.showMessageDialog(null, "Você não pode cadastrar uma venda sem produtos");
+            }
     }//GEN-LAST:event_FinalizarCompraActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        carrinho_de_compras= new ArrayList<ProdutoModel>();
+        for(ProdutoModel e: produtosTemp){
+            for(ProdutoModel cdp: carrinho_de_compras){
+                if(cdp.getLote()==e.getLote()){
+                    e.setQuantidade(e.getQuantidade()+cdp.getQuantidade());
+                }
+            }
+        }
+        
+        updateCarrinho();
+        updateEstoque();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     private ArrayList <ClienteModel> clientes=MercadoView.clientes;
@@ -438,7 +480,6 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField qtdtxt;

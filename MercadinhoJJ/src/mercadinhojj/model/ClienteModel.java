@@ -3,11 +3,13 @@ package mercadinhojj.model;
 import java.util.ArrayList;
 
 public class ClienteModel {
-    private int id;
+    
     private String nome;
     private String endereco;
     private String CPF;
     private double divida;
+    
+    private int id; // lemnbrar de retirar depois
 
     private ArrayList<VendaModel> historico ;
 
@@ -16,7 +18,7 @@ public class ClienteModel {
         this.historico = new ArrayList();
     }
 
-    public ClienteModel(String CPF, String nome, String endereco, double divida) {     
+    public ClienteModel(String CPF, String nome, String endereco, double divida) {
         super();
         this.CPF = CPF;
         this.nome = nome;
@@ -68,6 +70,7 @@ public class ClienteModel {
     public void inserirCompra(VendaModel c){
        this.historico.add(c);
     }
+
     public int getId() {
         return id;
     }

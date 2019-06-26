@@ -7,9 +7,11 @@ package mercadinhojj.view;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.MaskFormatter;
+import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.VendaModel;
 
 /**
@@ -21,14 +23,18 @@ public class LucroDebitoInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form LucroDebitoInternal
      */
+    
+    private ConexaoDAO con = new ConexaoDAO();
+    
     public LucroDebitoInternal() {
         lucroDiarioComDebito=0.0;
        
-       for(VendaModel v:totalVendas){
-            if(v.isDebito()){
-                System.out.println(v.calcularValorTotal());
-                lucroDiarioComDebito+=v.calcularValorTotal();
-            }
+        
+       List<VendaModel> lvendas= con.listVendas();
+       for(VendaModel v:lvendas){
+            
+                lucroDiarioComDebito+=v.getValorTotal();
+            
         }
        
         initComponents();
@@ -76,7 +82,7 @@ public class LucroDebitoInternal extends javax.swing.JInternalFrame {
         DetalharMensal.setText("Detalhar");
 
         lucro_diario1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lucro_diario1.setText("00,00");
+        lucro_diario1.setText(Double.toString(lucroDiarioComDebito));
 
         lucro_diario2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lucro_diario2.setText("R$");

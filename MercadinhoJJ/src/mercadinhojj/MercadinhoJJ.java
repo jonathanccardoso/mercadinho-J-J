@@ -10,9 +10,6 @@ import mercadinhojj.model.*;
 
 import mercadinhojj.DAO.ConexaoDAO;
 
-
-
-
 /**
  *
  * @author kadu
@@ -36,13 +33,10 @@ public class MercadinhoJJ {
     }
     public static void main(String[] args) {
 
-        //private ConexaoDAO con = new ConexaoDAO();
-
         ArrayList<ClienteModel> clientes = new ArrayList();
 
-
-        ProdutoModel feijao= new ProdutoModel("feijao", 226, 5, 2.78);
-        ProdutoModel arroz= new ProdutoModel("arroz", 226, 6, 2.78);
+        ProdutoModel feijao= new ProdutoModel(226, "feijao", 5, 2.78);
+        ProdutoModel arroz= new ProdutoModel(226,"arroz", 6, 2.78);
         
         ArrayList <ProdutoModel> al=  new ArrayList<>();
         al.add(feijao);

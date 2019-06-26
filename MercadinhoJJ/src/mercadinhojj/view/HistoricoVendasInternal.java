@@ -6,7 +6,10 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDesktopPane;
+import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.VendaModel;
 
 /**
@@ -18,7 +21,13 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form HistoricoVendasInternal
      */
+     private ConexaoDAO con = new ConexaoDAO();
     public HistoricoVendasInternal() {
+        List<VendaModel> lvendas= con.listVendas();
+        for(VendaModel lv:lvendas){
+            System.out.println("fk_cliente:"+lv.getCliente());
+        }
+        System.out.println();
         initComponents();
     }
 
@@ -40,11 +49,20 @@ public class HistoricoVendasInternal extends javax.swing.JInternalFrame {
 
         Object vendas [][]= new Object [totalVendas.size()][4];
         int i =0;
-        for (VendaModel v: totalVendas){
+        List<ClienteModel> lclientes=con.listClientes();
+        List<VendaModel> lvendas= con.listVendas();
+        String clienteAtual="";
+        for (VendaModel v: lvendas){
+            System.out.println("ID:"+v.getId());
+            for(ClienteModel cl: lclientes){
+                if(cl.getCPF().equals(v.getCliente())){
+                    clienteAtual=cl.getNome();
+                }
+            }
             vendas[i][0]=v.getId();
             vendas[i][1]=v.getData();
-            vendas[i][2]="Cliente qualquer";
-            vendas[i][3]=v.calcularValorTotal();
+            vendas[i][2]=clienteAtual;
+            vendas[i][3]=v.getValorTotal();
             i++;
         }
         tabelavendas.setModel(new javax.swing.table.DefaultTableModel(

@@ -21,38 +21,39 @@ public class MercadoView extends javax.swing.JFrame {
     /**
      * Creates new form MercadoView2
      */
-    
+
     private ConexaoDAO con = new ConexaoDAO();
     private ClienteModel cliente;
-    
+    private ProdutoModel produto;
+
     public MercadoView() {
-                
         clientes=new ArrayList<>();
         produtos=new ArrayList<>();
-
-        ProdutoModel p = new ProdutoModel("bom bril", 12, 5, 4.99);
-        produtos.add(p);
-        //ClienteModel kadu = new ClienteModel("112.777.888-23", "Kadu 2", "Rua de teste", 10.00);
-        //clientes.add(kadu);
+        totalVendas= new ArrayList<>();
         
+        ProdutoModel p = new ProdutoModel(12, "bom bril", 5, 4.99);
+       
+        
+       
+        VendaModel testevenda= new VendaModel();
         List<ClienteModel> clientesx = con.listClientes();
-        
+
         for (ClienteModel obj: clientesx) {
-            // clientes.addRow(new Object[]{obj.getNome()});
             clientes.add(obj);
         }
-        
 
-        /*Object [][] dados = {
-            {"Ana Monteiro", "48 9923-7898", "ana.monteiro@gmail.com"},
-            {"João da Silva", "48 8890-3345", "joaosilva@hotmail.com"},
-            {"Pedro Cascaes", "48 9870-5634", "pedrinho@gmail.com"}
-        };
-        
-        clientes.add(dados);*/
-        
+        List<ProdutoModel> produtosx = con.listProdutos();
+
+        for (ProdutoModel obj: produtosx) {
+            produtos.add(obj);
+        }
+        List<VendaModel>vendasx = con.listVendas();
+
+        for (VendaModel obj: vendasx) {
+            totalVendas.add(obj);
+        }
+
         //con.setClient(kadu); //ok
-
      
         initComponents();
     }
@@ -78,7 +79,6 @@ public class MercadoView extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         cadastrarCliente = new javax.swing.JMenuItem();
         analiseDeDevedores = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -118,7 +118,7 @@ public class MercadoView extends javax.swing.JFrame {
 
         jMenu2.setText("Clientes");
 
-        cadastrarCliente.setText("Cadastrar");
+        cadastrarCliente.setText("Gerenciar");
         cadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarClienteActionPerformed(evt);
@@ -134,9 +134,6 @@ public class MercadoView extends javax.swing.JFrame {
         });
         jMenu2.add(analiseDeDevedores);
 
-        jMenuItem8.setText("Histórico");
-        jMenu2.add(jMenuItem8);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Produtos");
@@ -146,7 +143,7 @@ public class MercadoView extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Novo");
+        jMenuItem3.setText("Gerenciar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -198,13 +195,12 @@ public class MercadoView extends javax.swing.JFrame {
 
     private void cadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarClienteActionPerformed
         // TODO add your handling code here:
-        ClienteInternalFrame cadcliente = new ClienteInternalFrame();
-        
+        ClienteInternalFrame cadcliente= new ClienteInternalFrame();
         area.add(cadcliente);
         System.out.println("quero cadastrar");
         //ClienteModel cadcliente = new ClienteModel();
         //con.setClient(cadcliente);
-        
+
         cadcliente.setVisible(true);
         System.out.println("mostrar quero cadastrar");
     }//GEN-LAST:event_cadastrarClienteActionPerformed
@@ -224,7 +220,7 @@ public class MercadoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        ProdutoInternalFrame cadproduto = new ProdutoInternalFrame();
+        ProdutoInternalFrame cadproduto= new ProdutoInternalFrame();
         area.add(cadproduto);
         cadproduto.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -316,6 +312,5 @@ public class MercadoView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }
