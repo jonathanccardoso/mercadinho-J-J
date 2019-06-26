@@ -175,7 +175,7 @@
         <Component class="javax.swing.JTable" name="tabelaprodutos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    produtosMatriz,&#xa;    new String [] {&#xa;        &quot;slote&quot;, &quot;Produto&quot;, &quot;Pre&#xe7;o&quot;, &quot;Qtd_disponivel&quot;&#xa;    }&#xa;)" type="code"/>
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    produtosMatriz,&#xa;    new String [] {&#xa;        &quot;Lote&quot;, &quot;Produto&quot;, &quot;Pre&#xe7;o&quot;, &quot;Qtd_disponivel&quot;&#xa;    }&#xa;)" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -207,7 +207,7 @@
         <Component class="javax.swing.JTable" name="tabelacompra">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;       &#xa;    },&#xa;    new String [] {&#xa;        &quot;ID&quot;, &quot;Produto&quot;, &quot;Pre&#xe7;o&quot;, &quot;Qtd_disponivel&quot;&#xa;    }&#xa;)" type="code"/>
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;Lote&quot;, &quot;Produto&quot;, &quot;Pre&#xe7;o&quot;, &quot;Quantidade&quot;&#xa;    }&#xa;)" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -215,7 +215,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="RemoverProduto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="remover"/>
+        <Property name="text" type="java.lang.String" value="Remover"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RemoverProdutoActionPerformed"/>

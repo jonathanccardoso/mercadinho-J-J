@@ -6,6 +6,7 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ClienteModel;
@@ -111,7 +112,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
             produtosMatriz,
             new String [] {
-                "slote", "Produto", "Preço", "Qtd_disponivel"
+                "Lote", "Produto", "Preço", "Qtd_disponivel"
             }
         ));
         jScrollPane1.setViewportView(tabelaprodutos);
@@ -130,12 +131,12 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Produto", "Preço", "Qtd_disponivel"
+                "Lote", "Produto", "Preço", "Quantidade"
             }
         ));
         jScrollPane2.setViewportView(tabelacompra);
 
-        RemoverProduto.setText("remover");
+        RemoverProduto.setText("Remover");
         RemoverProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RemoverProdutoActionPerformed(evt);
@@ -372,35 +373,47 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private void FinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarCompraActionPerformed
         // TODO add your handling code here:
        /*id da compra temporario*/
-        int tempId=0;
-        for(VendaModel v: totalVendas){
-            tempId++;
-        }
-        ////fim id temp
-        
+      
         VendaModel novaVenda= new VendaModel();
-        novaVenda.setId(tempId);
+        
         for (ProdutoModel p:carrinho_de_compras){
             System.out.println(p.getNome());
             novaVenda.adicionarProduto(p);
         }
         //novaVenda.setData();setar a data aqui
-        if(emDebito.isSelected()){
-            novaVenda.setDebito(true); 
-        }else{
-            novaVenda.setDebito(false);
-        }
-        
+       
+        novaVenda.setValorTotal(novaVenda.calcularValorTotal());
+        JOptionPane.showMessageDialog(null, novaVenda.calcularValorTotal() );
         totalVendas.add(novaVenda);
         //
         ClienteModel cv= new ClienteModel();
         for(ClienteModel c:clientes){
            String cpfcliente= clientes.get(id_cliente).getCPF();
-           cv=c;
+           if(c.getCPF().equals(cpfcliente)){
+               cv=c;
+           }
+           
             
         }
+         if(emDebito.isSelected()){
+            novaVenda.setDebito(true);
+            cv.setDivida(cv.getDivida()+novaVenda.calcularValorTotal());
+            con.updateCliente(cv);
+        }else{
+            novaVenda.setDebito(false);
+        }
         System.out.println(totalVendas.get(totalVendas.size()-1).getId());
+        
         con.setVenda(novaVenda,cv);
+        List<VendaModel> v= con.listVendas();
+        int fkv =v.get(v.size()-1).getId();
+        System.out.println(fkv);
+        
+        //parte para criar item_vendas
+        for(ProdutoModel p:novaVenda.getProdutos()){
+                    
+                con.setItemVenda(fkv,novaVenda,p);
+        }
         
         
         JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");

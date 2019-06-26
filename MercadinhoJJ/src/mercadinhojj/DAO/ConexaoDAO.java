@@ -30,7 +30,8 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
-    private String url = "jdbc:postgresql://localhost:5432/mercado";
+    //private String url = "jdbc:postgresql://localhost:5432/mercado";
+    private String url = "jdbc:postgresql://localhost:5432/ServeTeste";
     private String usuario = "postgres";
     private String senha = "postgre";
     
@@ -101,7 +102,7 @@ public class ConexaoDAO {
             resultSet = stm.executeQuery(
                     "insert into venda VALUES ( "
                         + "default,"
-                        + "'"+ v.getValorTotal() +"', "
+                        + "'"+ v.calcularValorTotal() +"', "
                         + "'"+ formatadorDeData.format(v.getData()) +"', "
                         + "'"+ v.getDebito() + "',"
                         + "'"+ c.getCPF() + "');"
@@ -178,14 +179,13 @@ public class ConexaoDAO {
         }
     }
     
-    public void setItemVenda(ItemVendaModel i, VendaModel v, ProdutoModel p) {
+    public void setItemVenda(int fkv,VendaModel v,ProdutoModel p) {
         try {
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
             resultSet = stm.executeQuery(
                     "insert into item_venda VALUES ( "
-                        + "'"+ i.getProduto() +"', "
-                        + "'"+ i.getQuantidade() +"', "
-                        + "'"+ v.getId() +"', "
+                        + "'"+ p.getQuantidade() +"', "
+                        + "'"+ fkv +"', "
                         + "'"+ p.getLote() + "');"
             );
         } catch (SQLException ex) {
@@ -221,9 +221,11 @@ public class ConexaoDAO {
         List<ClienteModel> clientes = new ArrayList<>();      
         
         try {
+            ResultSet requestVendas;
             stm = connection.createStatement(resultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
             //resultSet = stm.executeQuery("select * from cliente where slote='" + p.getSlote() + "'");
             resultSet = stm.executeQuery("select * from cliente");
+            
             //resultSet = stm.executeQuery("select * from cliente where cpf='"+c.getCPF()+"'");
             
             while(resultSet.next()){
@@ -235,6 +237,7 @@ public class ConexaoDAO {
                 cliente.setDivida(resultSet.getDouble("divida"));
                 
                 clientes.add(cliente);
+                //requestVendas=stm.executeQuery("select * from vendas where cpf_cliente="+resultSet.getString(cpf)+" ");
             }
         } catch(SQLException ex) {
             System.out.println(ex);
@@ -282,7 +285,7 @@ public class ConexaoDAO {
                 venda.setData(resultSet.getDate("data_venda"));
                 venda.setDebito(resultSet.getBoolean("debito"));
                 //venda.setCPF(resultSet.getString("preco"));
-                //venda.setCliente(resultSet.getString("cpf_cliente"));
+                venda.setCliente(resultSet.getString("cpf_cliente"));
                 
                 vendas.add(venda);
             }

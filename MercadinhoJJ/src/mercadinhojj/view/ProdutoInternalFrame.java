@@ -6,6 +6,7 @@
 package mercadinhojj.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ProdutoModel;
@@ -24,6 +25,10 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
     private ConexaoDAO con = new ConexaoDAO();
 
     public ProdutoInternalFrame() {
+        List <ProdutoModel>testelist=con.listProdutos();
+        for (ProdutoModel p : testelist){
+            System.out.println("Lote:"+p.getLote());
+        }
         initComponents();
     }
 
@@ -45,10 +50,8 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         precotxt = new javax.swing.JTextField();
         qtdtxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        slotetxt = new javax.swing.JTextField();
         cadastrarprod = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Atualizar = new javax.swing.JButton();
         deletarprod = new javax.swing.JButton();
 
         setClosable(true);
@@ -66,7 +69,7 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         tabelaprodutos.setModel(new javax.swing.table.DefaultTableModel(
             produtosMatriz,
             new String [] {
-                "Slote", "Produto", "Preço", "Quantidade"
+                "Lote", "Produto", "Preço", "Quantidade"
             }
         ));
         tabelaprodutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -84,8 +87,6 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Quantidade");
 
-        jLabel5.setText("Slote");
-
         cadastrarprod.setText("Cadastrar");
         cadastrarprod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,10 +94,10 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Atualizar.setText("Atualizar");
+        Atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                AtualizarActionPerformed(evt);
             }
         });
 
@@ -131,17 +132,13 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cadastrarprod, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(qtdtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                                    .addComponent(slotetxt)))
+                                .addComponent(qtdtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(deletarprod, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -162,23 +159,16 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(qtdtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(precotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(slotetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(precotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deletarprod)
-                    .addComponent(jButton2)
+                    .addComponent(Atualizar)
                     .addComponent(cadastrarprod))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -188,15 +178,24 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
     private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
         // TODO add your handling code here:
-        ProdutoModel p = new ProdutoModel(Integer.parseInt(slotetxt.getText()),nometxt.getText(), Integer.parseInt(qtdtxt.getText()), Double.parseDouble(precotxt.getText()));
-        produtos.add(p);
+        ProdutoModel p = new ProdutoModel();
+        p.setNome(nometxt.getText());
+        p.setPreco(Double.parseDouble(precotxt.getText()));
+        p.setQuantidade(Integer.parseInt(qtdtxt.getText()));
+       
         con.setProduto(p);
+        
+        List<ProdutoModel> plist=con.listProdutos();
+        p.setLote(plist.get(plist.size()-1).getLote());
+        
+        produtos.add(p);
+        JOptionPane.showMessageDialog(null, "O id novo é: "+plist.get(plist.size()-1).getLote());
      
         DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
-        Object[] dados={slotetxt.getText(),nometxt.getText(),precotxt.getText(),qtdtxt.getText()};
+        Object[] dados={plist.get(plist.size()-1).getLote(),nometxt.getText(),precotxt.getText(),qtdtxt.getText()};
         dtmprodutos.addRow(dados);
 
-        slotetxt.setText(" ");
+        
         nometxt.setText(" ");
         precotxt.setText(" ");
         qtdtxt.setText(" ");
@@ -206,11 +205,16 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
     private void deletarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarprodActionPerformed
         // TODO add your handling code here:
         if(tabelaprodutos.getSelectedRow()!=-1){
+           
+           int lote_remove=Integer.parseInt(tabelaprodutos.getValueAt(tabelaprodutos.getSelectedRow(),0).toString());
+           
            produtos.remove(tabelaprodutos.getSelectedRow());
            DefaultTableModel dtmprodutos= (DefaultTableModel)tabelaprodutos.getModel();
            dtmprodutos.removeRow(tabelaprodutos.getSelectedRow());
-
-           ProdutoModel p = new ProdutoModel(Integer.parseInt(slotetxt.getText()),nometxt.getText(), Integer.parseInt(qtdtxt.getText()), Double.parseDouble(precotxt.getText()));
+           
+           
+           
+           ProdutoModel p = new ProdutoModel(lote_remove,nometxt.getText(), Integer.parseInt(qtdtxt.getText()), Double.parseDouble(precotxt.getText()));
            con.delProduto(p);
            
         }else{
@@ -225,47 +229,47 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         nometxt.setText(produtos.get(linha).getNome());
         precotxt.setText(Double.toString(produtos.get(linha).getPreco()));
         qtdtxt.setText(Integer.toString(produtos.get(linha).getQuantidade()));
-        slotetxt.setText(Integer.toString(produtos.get(linha).getLote()));
+        
         
         
     }//GEN-LAST:event_tabelaprodutosMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
         //atualizar produto
                 
         // TODO add your handling code here:
         String nome=nometxt.getText();
-        int slote=Integer.parseInt(slotetxt.getText());
+        
         int qtd=Integer.parseInt(qtdtxt.getText());
         double preco=Double.parseDouble(precotxt.getText());
-        ProdutoModel novoCliente = new ProdutoModel(slote, nome, qtd, preco);
-        con.updateProduto(novoCliente);
+        ProdutoModel novoProduto = new ProdutoModel();
+        novoProduto.setNome(nome);
+        novoProduto.setPreco(preco);
+        novoProduto.setQuantidade(qtd);
+        con.updateProduto(novoProduto);
         
         int linha = tabelaprodutos.getSelectedRow();
         produtos.remove(tabelaprodutos.getSelectedRow());
-        produtos.add(tabelaprodutos.getSelectedRow(),novoCliente);
+        produtos.add(tabelaprodutos.getSelectedRow(),novoProduto);
                 
-        tabelaprodutos.setValueAt(slotetxt.getText(), tabelaprodutos.getSelectedRow(),0);
         tabelaprodutos.setValueAt(nometxt.getText(), tabelaprodutos.getSelectedRow(),1);
         tabelaprodutos.setValueAt(precotxt.getText(), tabelaprodutos.getSelectedRow(),2);
         tabelaprodutos.setValueAt(qtdtxt.getText(), tabelaprodutos.getSelectedRow(),3);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_AtualizarActionPerformed
 
     private ArrayList <ProdutoModel> produtos= MercadoView.produtos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Atualizar;
     private javax.swing.JButton cadastrarprod;
     private javax.swing.JButton deletarprod;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nometxt;
     private javax.swing.JTextField precotxt;
     private javax.swing.JTextField qtdtxt;
-    private javax.swing.JTextField slotetxt;
     private javax.swing.JTable tabelaprodutos;
     // End of variables declaration//GEN-END:variables
 }

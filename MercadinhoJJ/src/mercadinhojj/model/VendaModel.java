@@ -12,7 +12,7 @@ public class VendaModel {
     private double valorTotal;
     private Date data;
     private boolean debito;
-    private ClienteModel cliente; //há venda só pertence a um crientess
+    private String cliente; //há venda só pertence a um crientess
 
     public VendaModel() {
         super();
@@ -21,7 +21,7 @@ public class VendaModel {
         this.data = new Date();
     }
 
-    public VendaModel(boolean debito, ClienteModel cliente) {
+    public VendaModel(boolean debito, String cliente) {
         super();
         this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
@@ -37,11 +37,11 @@ public class VendaModel {
         return produtos;
     }
 
-    public ClienteModel getCliente() {
+    public String getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteModel cliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
@@ -102,6 +102,7 @@ public class VendaModel {
         for(ProdutoModel p :produtos){
             valorTotal+=p.getPreco()*p.getQuantidade();
         }
-        return valorTotal;
+        
+        return this.valorTotal=valorTotal;
     }
 }

@@ -79,7 +79,6 @@ public class MercadoView extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         cadastrarCliente = new javax.swing.JMenuItem();
         analiseDeDevedores = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -119,7 +118,7 @@ public class MercadoView extends javax.swing.JFrame {
 
         jMenu2.setText("Clientes");
 
-        cadastrarCliente.setText("Cadastrar");
+        cadastrarCliente.setText("Gerenciar");
         cadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarClienteActionPerformed(evt);
@@ -135,9 +134,6 @@ public class MercadoView extends javax.swing.JFrame {
         });
         jMenu2.add(analiseDeDevedores);
 
-        jMenuItem8.setText("Histórico");
-        jMenu2.add(jMenuItem8);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Produtos");
@@ -147,7 +143,7 @@ public class MercadoView extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Novo");
+        jMenuItem3.setText("Gerenciar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -316,6 +312,5 @@ public class MercadoView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }
