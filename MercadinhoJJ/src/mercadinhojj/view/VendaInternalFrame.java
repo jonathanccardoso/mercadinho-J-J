@@ -158,6 +158,11 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         });
 
         jButton4.setText("Esvaziar Compra");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         emDebito.setText("Débito");
 
@@ -431,10 +436,27 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         
         
         JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
+        carrinho_de_compras= new ArrayList<>();
+        updateCarrinho();
         } catch (VendaInvalida ex) {
              JOptionPane.showMessageDialog(null, "Você não pode cadastrar uma venda sem produtos");
             }
     }//GEN-LAST:event_FinalizarCompraActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        carrinho_de_compras= new ArrayList<ProdutoModel>();
+        for(ProdutoModel e: produtosTemp){
+            for(ProdutoModel cdp: carrinho_de_compras){
+                if(cdp.getLote()==e.getLote()){
+                    e.setQuantidade(e.getQuantidade()+cdp.getQuantidade());
+                }
+            }
+        }
+        
+        updateCarrinho();
+        updateEstoque();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     private ArrayList <ClienteModel> clientes=MercadoView.clientes;

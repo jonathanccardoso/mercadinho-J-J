@@ -245,6 +245,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Esvaziar Compra"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JDesktopPane" name="jDesktopPane1">
     </Component>

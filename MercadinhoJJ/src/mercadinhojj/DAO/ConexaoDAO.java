@@ -30,8 +30,8 @@ public class ConexaoDAO {
     public Statement stm;
     public ResultSet resultSet;
 
-    //private String url = "jdbc:postgresql://localhost:5432/mercado";
-    private String url = "jdbc:postgresql://localhost:5432/ServeTeste";
+   private String url = "jdbc:postgresql://localhost:5432/mercado";
+    //private String url = "jdbc:postgresql://localhost:5432/ServeTeste";
     private String usuario = "postgres";
     private String senha = "postgre";
     

@@ -5,6 +5,10 @@
  */
 package mercadinhojj.view;
 
+import java.util.List;
+import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.model.VendaModel;
+
 /**
  *
  * @author kadu
@@ -14,8 +18,23 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
     /**
      * Creates new form LucroDebitoInternal
      */
+    
+    private ConexaoDAO con = new ConexaoDAO();
     public LucroSemDebito() {
+        
+        double lucroTotalSemDebito=0;
+        
+        List<VendaModel> lvendas= con.listVendas();
+        for(VendaModel vm:lvendas){
+            if(!vm.getDebito()){
+              lucroTotalSemDebito+=vm.getValorTotal();
+            }
+        }
+      
         initComponents();
+        lucroSemDebitoDiario.setText(Double.toString(lucroTotalSemDebito));
+        lucroSemDebitoMensal.setText(Double.toString(lucroTotalSemDebito));
+        
     }
 
     /**
@@ -30,10 +49,12 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        lucroSemDebitoDiario = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lucroSemDebitoMensal = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -46,17 +67,23 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Mensal:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("R$00,00");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("R$00,00");
-
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Detalhar");
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Detalhar");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("R$");
+
+        lucroSemDebitoDiario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lucroSemDebitoDiario.setText("0.00");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("R$");
+
+        lucroSemDebitoMensal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lucroSemDebitoMensal.setText("0.00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,20 +96,24 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lucroSemDebitoDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lucroSemDebitoMensal, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jButton1))))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,14 +123,16 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel6)
+                    .addComponent(lucroSemDebitoDiario))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton2))
-                .addContainerGap(213, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(jLabel7)
+                    .addComponent(lucroSemDebitoMensal))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,7 +145,9 @@ public class LucroSemDebito extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lucroSemDebitoDiario;
+    private javax.swing.JLabel lucroSemDebitoMensal;
     // End of variables declaration//GEN-END:variables
 }
