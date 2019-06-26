@@ -1,25 +1,25 @@
-# Sistema de gerenciamento do Mercadinho-J&J 
+# Sistema de Gerenciamento do Mercadinho-J&J
+
+## Como utilizar
+
+- [Script do banco PostgreSql](https://github.com/jonathanccardoso/mercadinho-J-J/blob/master/script-banco.sql)
+- Clone este projeto
+- Abra um editor Java (Netbeans, Eclipse, ...) e rode o projeto
+
+## Apresentação
+
+[Google Docs](https://docs.google.com/presentation/d/1scVKWCRS_xA5zdoc_COBNFNihZ-J6I54wccUWdlJIAg/edit?usp=sharing)
 
 ## Objetivo
 
 Construir um Sistema que seja capaz de auxiliar no gerenciamento de atividades na rotina de um mercadinho comum utilizando a linguagem JAVA e aplicando os conceitos aprendidos na matéria de POO.
 
-## Problemática
+## Requisitos do projeto
 
-A maioria dos mercados de pequeno porte de cidades do interior(mercearias)  ainda utilizam do sistema de anotações em folhas de caderno para anotar tarefas, contas e descrever seus dados.
-
-## Solução pensada
-
-Tendo em vista a falta de agilidade do método já citado na problemática , foi pensado pelos autores deste trabalho a implementação de um software que seja capaz de auxiliar o usuário a manutenção dos seus dados relacionados a clientes, fornecedores e produtos.
-
-## Descrição do projeto
-
-O sistema a ser desenvolvido terá as seguintes funcionalidades
+O sistema a ser desenvolvido terá as seguintes funcionalidades:
 
 - Cadastro de clientes
 - Remoção de clientes
-- Cadastro de Fornecedores
-- Remoção de Fornecedores
 - Cadastro de compras
 - Remoção de compras
 - Histórico de compras
@@ -28,11 +28,9 @@ O sistema a ser desenvolvido terá as seguintes funcionalidades
 - Remoção de vendas
 - Histórico de vendas
 - Verificação de dívida com o mercado
-- O dono do mercado poderá ver os clientes que o devem
-- Ver total de crédito.
-- Ver total de débito por cliente.
+- Ver total de débito por cliente
 
-## Autores:
+## Autores
 
 - <https://github.com/jonathanccardoso>
 - <https://github.com/lowliet64>
