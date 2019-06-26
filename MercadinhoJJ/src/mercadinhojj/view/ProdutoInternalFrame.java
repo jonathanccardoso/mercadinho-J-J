@@ -7,10 +7,13 @@ package mercadinhojj.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.exceptions.FormularioIncompleto;
 
 /**
  *
@@ -178,6 +181,11 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
 
     private void cadastrarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarprodActionPerformed
         // TODO add your handling code here:
+        
+        try{
+            if(nometxt.getText().equals("") || qtdtxt.getText().equals("'") || precotxt.getText().equals("")){
+                throw new FormularioIncompleto("Há algum campo vazio");
+            }
         ProdutoModel p = new ProdutoModel();
         p.setNome(nometxt.getText());
         p.setPreco(Double.parseDouble(precotxt.getText()));
@@ -199,7 +207,11 @@ public class ProdutoInternalFrame extends javax.swing.JInternalFrame {
         nometxt.setText(" ");
         precotxt.setText(" ");
         qtdtxt.setText(" ");
-        
+        }catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(null,"Os campos de quantidade e preço nao suportam caracteres");
+        } catch (FormularioIncompleto ex) {
+            JOptionPane.showMessageDialog(null,"O formulário está incompleto!");
+        }
     }//GEN-LAST:event_cadastrarprodActionPerformed
 
     private void deletarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarprodActionPerformed

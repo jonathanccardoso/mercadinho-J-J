@@ -7,12 +7,15 @@ package mercadinhojj.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.ProdutoModel;
 import mercadinhojj.model.VendaModel;
 import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.exceptions.VendaInvalida;
 
 /**
  *
@@ -296,8 +299,10 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarProdutoActionPerformed
         // TODO add your handling code here:
         int i=tabelaprodutos.getSelectedRow();
-        
+        try {
         if(i!=-1){
+            
+            
                //DefaultTableModel dtmcompras= (DefaultTableModel)tabelacompra.getModel();
                ProdutoModel p= new ProdutoModel();
                p.setLote(Integer.parseInt(produtosMatriz[i][0].toString()));
@@ -340,6 +345,10 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(null,"Nenhum item selecionado");
         }
+        }catch(NumberFormatException number){
+                JOptionPane.showMessageDialog(null,"Quantidade deve ser dado em valor inteiro");
+                qtdtxt.setText("");
+                }
      
         
         
@@ -354,6 +363,7 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
             for(ProdutoModel produto:produtosTemp){
                 if(produto.getLote()==Integer.parseInt(carrinhoMatriz[row][0].toString())){
                   produto.setQuantidade(produto.getQuantidade()+Integer.parseInt(carrinhoMatriz[row][3].toString()));
+                  JOptionPane.showMessageDialog(null, row);
                   carrinho_de_compras.remove(row);
                   tabelacompra.remove(row);
                   break;
@@ -373,9 +383,13 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
     private void FinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarCompraActionPerformed
         // TODO add your handling code here:
        /*id da compra temporario*/
-      
+      try{
         VendaModel novaVenda= new VendaModel();
-        
+        if(carrinho_de_compras.size()==0){
+           
+                throw new VendaInvalida(title);
+            
+        }
         for (ProdutoModel p:carrinho_de_compras){
             System.out.println(p.getNome());
             novaVenda.adicionarProduto(p);
@@ -417,7 +431,9 @@ public class VendaInternalFrame extends javax.swing.JInternalFrame {
         
         
         JOptionPane.showMessageDialog(null, "Compra Cadastrada com Sucesso");
-        
+        } catch (VendaInvalida ex) {
+             JOptionPane.showMessageDialog(null, "Você não pode cadastrar uma venda sem produtos");
+            }
     }//GEN-LAST:event_FinalizarCompraActionPerformed
 
     

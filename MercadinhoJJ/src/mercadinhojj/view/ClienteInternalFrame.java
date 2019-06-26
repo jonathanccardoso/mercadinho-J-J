@@ -7,10 +7,13 @@ package mercadinhojj.view;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import mercadinhojj.DAO.ConexaoDAO;
+import mercadinhojj.exceptions.CPFRepetido;
 import mercadinhojj.exceptions.FormularioIncompleto;
 import mercadinhojj.exceptions.NomeUsuarioInvalido;
 import mercadinhojj.model.ClienteModel;
@@ -233,6 +236,11 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
                   throw new FormularioIncompleto("O campo CPF está incompleto");
               }
           }
+          for(ClienteModel c:clientes){
+              if(c.getCPF().equals(cpftxt.getText())){
+                  throw new CPFRepetido("O CPF ja esta cadastrado");
+              }
+          }
           
           
         String nome=nometxt.getText();
@@ -276,6 +284,8 @@ public class ClienteInternalFrame extends javax.swing.JInternalFrame {
         }catch (NumberFormatException ime){
             JOptionPane.showMessageDialog(null,"O campo de divida não aceita Caracteres !");
         
+        } catch (CPFRepetido ex) {
+              JOptionPane.showMessageDialog(null,"O CPF já está cadastrado");
         }
             
         

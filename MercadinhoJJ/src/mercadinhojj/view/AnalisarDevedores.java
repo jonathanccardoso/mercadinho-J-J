@@ -7,6 +7,8 @@ package mercadinhojj.view;
 
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import javax.swing.table.DefaultTableModel;
+import mercadinhojj.DAO.ConexaoDAO;
 import mercadinhojj.model.ClienteModel;
 import mercadinhojj.model.VendaModel;
 
@@ -19,6 +21,8 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
     /**
      * Creates new form AnalisarDevedores
      */
+     private ConexaoDAO con = new ConexaoDAO();
+
     public AnalisarDevedores() {
         
         initComponents();
@@ -57,15 +61,7 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
             new String [] {
                 "CPF","Cliente", "Divida(R$)"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tabeladevedores.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabeladevedores);
 
@@ -132,14 +128,24 @@ public class AnalisarDevedores extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         // Pagar de toda a divida!
         
+        ClienteModel clienteP= new ClienteModel();
         
         String cpf=matriz_devedores[tabeladevedores.getSelectedRow()][0].toString();
-        System.out.println(cpf);
+        for(ClienteModel c:clientes){
+           if(c.getCPF().equals(cpf)){
+               clienteP=c;
+               clienteP.setDivida(0);
+               break;
+           }
+        }
         // con.updateDividaCliente(cpf); zerar divida pelo cpf
-        tabeladevedores.remove(tabeladevedores.getSelectedRow());
         
-      
-      
+        System.out.println("cpf do cliente:"+clienteP.getCPF());
+        
+        con.updateCliente(clienteP);
+         DefaultTableModel dtmdevedores= (DefaultTableModel)tabeladevedores.getModel();
+         dtmdevedores.removeRow(tabeladevedores.getSelectedRow());
+        
     }//GEN-LAST:event_jButton2ActionPerformed
     private JDesktopPane area=mercadinhojj.view.MercadoView.area;
     private ArrayList <ClienteModel> clientes=mercadinhojj.view.MercadoView.clientes;
